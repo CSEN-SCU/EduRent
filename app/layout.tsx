@@ -10,8 +10,8 @@ import ToasterProvider from "./providers/ToasterProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "airbnb",
-  description: "Airbnb clone",
+  title: "EduRent",
+  description: "SCU off-campus housing app",
 };
 
 const font = Nunito({
