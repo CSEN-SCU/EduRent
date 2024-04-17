@@ -41,6 +41,10 @@ npm install zustand
 npm install axios
 npm install react-hook-form
 npm install react-hot-toast
+npm install -D prisma
+npm install next-auth @prisma/client @next-auth/prisma-adapter
+npm install bcrypt
+npm install -D @types/bcrypt
 
 If you run into issues with the above, then try adding "sudo" to the front and try again
 
