@@ -1,6 +1,6 @@
 "use client";
 
-import useCountries from "@/app/hooks/useCountries";
+//import useCountries from "@/app/hooks/useCountries";
 import { User } from "@prisma/client";
 import { IconType } from "react-icons";
 import Avatar from "../Avatar";
@@ -37,9 +37,10 @@ const ListingInfo: React.FC<IListingInfoProps> = ({
   locationValue,
   category,
 }) => {
-  const { getByValue } = useCountries();
+  //const { getByValue } = useCountries();
+  //const ()
 
-  const coordinates = getByValue(locationValue)?.latlng;
+  const coordinates = [0,0];
 
   return (
     <div className="col-span-4 flex flex-col gap-8">
