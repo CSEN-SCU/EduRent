@@ -45,6 +45,8 @@ npm install -D prisma
 npm install next-auth @prisma/client @next-auth/prisma-adapter
 npm install bcrypt
 npm install -D @types/bcrypt
+npm insatll react-date-range
+npm install -D @types/react-date-range
 
 If you run into issues with the above, then try adding "sudo" to the front and try again
 
