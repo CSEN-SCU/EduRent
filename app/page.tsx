@@ -4,10 +4,18 @@ import ClientOnly from "./components/ClientOnly";
 import Container from "./components/Container";
 import EmptyState from "./components/EmptyState";
 import ListingCard from "./components/listings/ListingCard";
+import { GoogleMapsEmbed } from '@next/third-parties/google';
 
 export default async function Home() {
   const listings = await getListings();
   const currentUser = await getCurrentUser();
+
+  const googleMapsApiKey = process.env.GOOGLE_MAPS_EMBED_KEY;
+
+  if (!googleMapsApiKey) {
+    // Handle case when API key is not available
+    return <div>Error: Google Maps API key is not provided.</div>;
+  }
 
   if(listings.length == 0) {
     return(
@@ -19,6 +27,13 @@ export default async function Home() {
 
   return (
     <ClientOnly>
+      <GoogleMapsEmbed
+        apiKey={googleMapsApiKey}
+        height={200}
+        width="60%"
+        mode="place"
+        q="Brooklyn+Bridge,New+York,NY"
+      />
       <Container>
         <div className="
         pt-24
