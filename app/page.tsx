@@ -27,36 +27,44 @@ export default async function Home() {
 
   return (
     <ClientOnly>
-      <GoogleMapsEmbed
-        apiKey={googleMapsApiKey}
-        height={200}
-        width="60%"
-        mode="place"
-        q="Brooklyn+Bridge,New+York,NY"
-      />
-      <Container>
-        <div className="
-        pt-24
-        grid
-        grid-cols-1
-        sm:grid-cols-2
-        md:grid-cols-3
-        lg:grid-cols-4
-        xl:grid-cols-5
-        2xl:grid-cols-6
-        gap-8
-        ">
-          {listings.map((listing) => {
-            return (
-              <ListingCard
-                currentUser = {currentUser}
-                key={listing.id}
-                data={listing}
-              />
-            )
-          })}
+      <div className="flex h-full">
+        <div className="flex-initial w-2/3">
+          <Container>
+          <div className="
+          pt-24
+          grid
+          grid-cols-1
+          sm:grid-cols-2
+          md:grid-cols-3
+          lg:grid-cols-4
+          xl:grid-cols-5
+          2xl:grid-cols-6
+          gap-8
+          ">
+            {listings.map((listing) => {
+              return (
+                <ListingCard
+                  currentUser = {currentUser}
+                  key={listing.id}
+                  data={listing}
+                />
+              )
+            })}
+          </div>
+        </Container>
         </div>
-      </Container>
+        <div className="flex-initial w-1/3">
+          <div className="pt-24 h-full">
+            <GoogleMapsEmbed
+              apiKey={googleMapsApiKey}
+              mode="place"
+              height={600}
+              width={600}
+              q="Brooklyn+Bridge,New+York,NY"
+            />
+          </div>
+        </div>
+      </div>
     </ClientOnly>
   );
 }
