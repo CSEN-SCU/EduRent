@@ -4,6 +4,7 @@ import ClientOnly from "./components/ClientOnly";
 import Container from "./components/Container";
 import EmptyState from "./components/EmptyState";
 import ListingCard from "./components/listings/ListingCard";
+import GoogleMap from "./components/GoogleMap";
 
 export default async function Home() {
   const listings = await getListings();
@@ -52,14 +53,25 @@ export default async function Home() {
           </div>
         </Container>
         </div>
-        <div className="flex-initial w-2/5 mr-12">
-          <div className="pt-24 h-full">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  loading="lazy"
-                  src={`https://www.google.com/maps/embed/v1/place?key=${googleMapsApiKey}&q=Space+Needle,Seattle+WA`}>
-                </iframe>
+          <div className="flex-initial w-2/5 mr-12">
+            {/* <div className="pt-24 h-full">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    loading="lazy"
+                    src={`https://www.google.com/maps/embed/v1/place?key=${googleMapsApiKey}&q=Space+Needle,Seattle+WA`}>
+                  </iframe>
+            </div> */}
+                    <div className="h-screen relative">
+            <GoogleMap
+              apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}
+              center={center}
+              zoom={zoom}
+              markers={data?.hotels}
+              onIdle={onIdle}
+              onMarkerClick={onMarkerClick}
+              highlightedMarkerId={highlightedHotel?.hotelId}
+            />
           </div>
         </div>
       </div>
