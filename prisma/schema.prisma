@@ -76,6 +76,7 @@ model Listing {
  leaseEndDate DateTime
  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
  reservations Reservation[]
+listingLatLong Float[]
 }
 
 
@@ -87,8 +88,6 @@ model Reservation {
  endDate DateTime
  totalPrice Int
  createdAt DateTime @default(now())
-
-
  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
 }
