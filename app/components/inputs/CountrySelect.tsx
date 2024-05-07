@@ -50,8 +50,14 @@ const ReadySearchBox = ({ locationValue, onChange }: CountrySelectProps) => {
       <input
         type="text"
         className={`border-2 border-neutral-300 p-2 rounded-lg w-full
-        ${locationValue?.label === "" ? 'border-rose-500' : 'border-neutral-300'}
-        ${locationValue?.label === "" ? 'focus:border-rose-500' : 'focus:border-black'}
+        ${
+          locationValue?.label === "" ? "border-rose-500" : "border-neutral-300"
+        }
+        ${
+          locationValue?.label === ""
+            ? "focus:border-rose-500"
+            : "focus:border-black"
+        }
 
         `}
         placeholder="Enter Full Address"
@@ -78,9 +84,8 @@ const ReadySearchBox = ({ locationValue, onChange }: CountrySelectProps) => {
               label={description}
               onClick={() => {
                 setValue(description);
-                clearSuggestions();
 
-                // sus code 
+                // sus code
                 getGeocode({ address: description }).then((results) => {
                   const { lat, lng } = getLatLng(results[0]);
                   const newValue = {
@@ -92,8 +97,9 @@ const ReadySearchBox = ({ locationValue, onChange }: CountrySelectProps) => {
                     value: description,
                   };
                   onChange(newValue as CountrySelectValue);
-                });                 
-              }} // Problem is here 
+                  clearSuggestions();
+                });
+              }} // Problem is here
             />
           ))}
       </div>
@@ -101,7 +107,7 @@ const ReadySearchBox = ({ locationValue, onChange }: CountrySelectProps) => {
   );
 };
 
-const CountrySelect: React.FC<CountrySelectProps> =({
+const CountrySelect: React.FC<CountrySelectProps> = ({
   locationValue,
   onChange,
 }) => {
