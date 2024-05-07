@@ -1,8 +1,10 @@
 import { Status, Wrapper } from "@googlemaps/react-wrapper";
 import { useMemo } from "react";
-import  listings  from "@/app/actions/getListings";
+
 import Map from "../Map";
 import Marker from "../CustomMarker";
+import listings from "./actions/getListings"
+import { SafeListing } from "@/app/types";
 
 const render = (status: Status) => {
   if (status === Status.FAILURE) {
@@ -14,8 +16,8 @@ const render = (status: Status) => {
 interface GoogleMapProps {
   onIdle?: (map: google.maps.Map) => void;
   onClick?: (e: google.maps.MapMouseEvent) => void;
-  onMarkerClick: (payload: Hotel) => void;
-  markers?: Listings[];
+  onMarkerClick: (payload: SafeListing) => void;
+  markers?: SafeListing[];
   center: google.maps.LatLngLiteral;
   zoom: number;
   apiKey: string;
@@ -33,7 +35,7 @@ export default function GoogleMap({
   highlightedMarkerId,
 }: GoogleMapProps) {
   const filtered = useMemo(() => {
-    return markers?.filter((m) => m.location.latitude && m.location.longitude);
+    return markers?.filter((m) => m.latitude && m.longitude);
   }, [markers]);
 
   return (
