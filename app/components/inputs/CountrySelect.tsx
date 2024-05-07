@@ -8,8 +8,12 @@ import usePlacesAutocomplete, {
 import { useGoogleMapsScript, Libraries } from "use-google-maps-script";
 import MenuItem from "../navbar/MenuItem";
 import { useState } from "react";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const libraries: Libraries = ["places"];
+const api_key = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY  as string;
 
 export type CountrySelectValue = {
   flag: string;
@@ -109,7 +113,7 @@ const CountrySelect: React.FC<CountrySelectProps> = ({
 }) => {
   // Google maps script
   const { isLoaded, loadError } = useGoogleMapsScript({
-    googleMapsApiKey: "AIzaSyAIl4gLM_i27zUv_0tKieRlqNOGvqC6fyM", // only works hardcoded help
+    googleMapsApiKey: api_key, // only works hardcoded help
     libraries,
   });
 
