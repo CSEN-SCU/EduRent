@@ -1,6 +1,5 @@
 "use client";
 
-import Select from "react-select";
 import toast from "react-hot-toast";
 import usePlacesAutocomplete, {
   getGeocode,
@@ -8,15 +7,14 @@ import usePlacesAutocomplete, {
 } from "use-places-autocomplete";
 import { useGoogleMapsScript, Libraries } from "use-google-maps-script";
 import MenuItem from "../navbar/MenuItem";
-import { Count } from "@prisma/client/runtime/library";
 
 const libraries: Libraries = ["places"];
 
 export type CountrySelectValue = {
   flag: string;
-  label: string; // matt_change
-  latlng: number[]; // we need to get the coordinates of this address
-  region: string; //
+  label: string; 
+  latlng: number[]; 
+  region: string; 
   locationValue: string;
 };
 
@@ -25,21 +23,14 @@ interface CountrySelectProps {
   onChange: (locationValue: CountrySelectValue) => void;
 }
 
-interface EventProps {
-  event: any;
-  locationValue?: CountrySelectValue;
-  onChange: (locationValue: CountrySelectValue) => void;
-}
-
-interface SelectProps {
+interface AutoCompleteResult {
+  place_id: string;
   description: string;
-  onChange: (locationValue: CountrySelectValue) => void;
 }
 
 const ReadySearchBox = ({ locationValue, onChange }: CountrySelectProps) => {
   // GoogleMapsApiHook
   const {
-    ready,
     setValue,
     suggestions: { data, status },
     clearSuggestions,
@@ -78,15 +69,14 @@ const ReadySearchBox = ({ locationValue, onChange }: CountrySelectProps) => {
       />
       <div className="flex flex-col cursor-pointer">
         {status === "OK" &&
-          data.map(({ place_id, description }) => (
+          data.map(({ place_id, description }: AutoCompleteResult) => (
             <MenuItem
               key={place_id}
               label={description}
               onClick={() => {
                 setValue(description);
 
-                // sus code
-                getGeocode({ address: description }).then((results) => {
+                getGeocode({ address: description }).then((results: any) => {
                   const { lat, lng } = getLatLng(results[0]);
                   const newValue = {
                     ...locationValue,
@@ -99,7 +89,7 @@ const ReadySearchBox = ({ locationValue, onChange }: CountrySelectProps) => {
                   onChange(newValue as CountrySelectValue);
                   clearSuggestions();
                 });
-              }} // Problem is here
+              }}
             />
           ))}
       </div>
@@ -113,7 +103,7 @@ const CountrySelect: React.FC<CountrySelectProps> = ({
 }) => {
   // Google maps script
   const { isLoaded, loadError } = useGoogleMapsScript({
-    googleMapsApiKey: "AIzaSyAIl4gLM_i27zUv_0tKieRlqNOGvqC6fyM",
+    googleMapsApiKey: "AIzaSyAIl4gLM_i27zUv_0tKieRlqNOGvqC6fyM", // only works hardcoded help
     libraries,
   });
 
