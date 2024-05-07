@@ -45,45 +45,24 @@ const ReadySearchBox = ({ locationValue, onChange }: CountrySelectProps) => {
     clearSuggestions,
   } = usePlacesAutocomplete({ debounce: 300 });
 
-  const handleSelect = ({ description, onChange }: SelectProps) => {
-    // When the user selects a place, we can replace the keyword without request data from API
-    // by setting the second parameter to "false"
-    console.log(description);
-    setValue(description, false);
-    clearSuggestions();
-
-    // Get latitude and longitude via utility functions
-    getGeocode({ address: description }).then((results) => {
-      const { lat, lng } = getLatLng(results[0]);
-      console.log("📍 Coordinates: ", { lat, lng });
-      const newValue = {
-        ...locationValue,
-        flag: "📍",
-        label: description,
-        latlng: [lat, lng], // CHANGE // CHANGE// CHANGE// CHANGE
-        region: description,
-        value: description,
-        
-      };
-      onChange(newValue as CountrySelectValue);
-    });
-  };
   return (
     <div>
       <input
         type="text"
+        className={`border-2 border-neutral-300 p-2 rounded-lg w-full
+        ${locationValue?.label === "" ? 'border-rose-500' : 'border-neutral-300'}
+        ${locationValue?.label === "" ? 'focus:border-rose-500' : 'focus:border-black'}
+
+        `}
         placeholder="Enter Full Address"
         value={locationValue && locationValue.label}
         onChange={(event) => {
           setValue(locationValue?.label ?? "");
-          console.log(data);
 
-          //maybe comment out
           const newValue = {
             ...locationValue,
             flag: "📍",
             label: event.target.value,
-            latlng: [0, 10000], // CHANGE // CHANGE// CHANGE// CHANGE
             region: event.target.value,
             value: event.target.value,
           };
@@ -97,7 +76,24 @@ const ReadySearchBox = ({ locationValue, onChange }: CountrySelectProps) => {
             <MenuItem
               key={place_id}
               label={description}
-              onClick={handleSelect({ description, onChange })}
+              onClick={() => {
+                setValue(description);
+                clearSuggestions();
+
+                // sus code 
+                getGeocode({ address: description }).then((results) => {
+                  const { lat, lng } = getLatLng(results[0]);
+                  const newValue = {
+                    ...locationValue,
+                    flag: "📍",
+                    latlng: [lat, lng],
+                    label: description,
+                    region: description,
+                    value: description,
+                  };
+                  onChange(newValue as CountrySelectValue);
+                });                 
+              }} // Problem is here 
             />
           ))}
       </div>
@@ -115,7 +111,6 @@ const CountrySelect: React.FC<CountrySelectProps> =({
     libraries,
   });
 
-  console.log(isLoaded);
   if (!isLoaded) return null;
 
   if (loadError) toast.error("Error Loading");
