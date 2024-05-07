@@ -12,6 +12,7 @@ import dynamic from "next/dynamic";
 import Counter from "../inputs/Counter";
 import ImageUpload from "../inputs/ImageUpload";
 import Input from "../inputs/Input";
+import DatePick from "../inputs/DatePick";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -50,6 +51,8 @@ const RentModal = () => {
       price: 1,
       title: "",
       description: "",
+      leaseStartDate: null,
+      leaseEndDate: null,
     },
   });
 
@@ -59,6 +62,8 @@ const RentModal = () => {
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
   const imageSrc = watch("imageSrc");
+  const leaseStartDate = watch("leaseStartDate");
+  const leaseEndDate = watch("leaseEndDate");
 
   const Map = useMemo(
     () =>
@@ -232,9 +237,11 @@ const RentModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="How would you describe you place?"
+          title="How would you describe your place?"
           subtitle="Short and sweet works best!"
         />
+
+        <hr />
         <Input
           id="title"
           label="Title"
@@ -252,6 +259,33 @@ const RentModal = () => {
           errors={errors}
           required
         />
+        <hr />
+        <div className="flex gap-8">
+          <div className="flex-grow">
+            <DatePick
+              id="leaseStartDate"
+              label="Lease start date"
+              disabled={isLoading}
+              register={register}
+              errors={errors}
+              required
+              value={leaseStartDate}
+              onChange={(value) => setCustomValue("leaseStartDate", value)}
+            />
+          </div>
+          <div className="flex-grow">
+            <DatePick
+              id="leaseEndDate"
+              label="Lease end date"
+              disabled={isLoading}
+              register={register}
+              errors={errors}
+              required
+              value={leaseEndDate}
+              onChange={(value) => setCustomValue("leaseEndDate", value)}
+            />
+          </div>
+        </div>
       </div>
     );
   }
