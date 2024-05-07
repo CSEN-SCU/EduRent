@@ -7,6 +7,7 @@ import usePlacesAutocomplete, {
 } from "use-places-autocomplete";
 import { useGoogleMapsScript, Libraries } from "use-google-maps-script";
 import MenuItem from "../navbar/MenuItem";
+import { useState } from "react";
 
 const libraries: Libraries = ["places"];
 
@@ -36,6 +37,8 @@ const ReadySearchBox = ({ locationValue, onChange }: CountrySelectProps) => {
     clearSuggestions,
   } = usePlacesAutocomplete({ debounce: 300 });
 
+  const [showSuggestions, setShowSuggestions] = useState(true); 
+
   return (
     <div>
       <input
@@ -54,6 +57,9 @@ const ReadySearchBox = ({ locationValue, onChange }: CountrySelectProps) => {
         placeholder="Enter Full Address"
         value={locationValue && locationValue.label}
         onChange={(event) => {
+          console.log(event.type);
+          if (event.type === "change") setShowSuggestions(true); 
+
           setValue(locationValue?.label ?? "");
 
           const newValue = {
@@ -68,14 +74,14 @@ const ReadySearchBox = ({ locationValue, onChange }: CountrySelectProps) => {
         }}
       />
       <div className="flex flex-col cursor-pointer">
-        {status === "OK" &&
+        {status === "OK" && showSuggestions && 
           data.map(({ place_id, description }: AutoCompleteResult) => (
             <MenuItem
               key={place_id}
               label={description}
               onClick={() => {
                 setValue(description);
-
+                setShowSuggestions(false);
                 getGeocode({ address: description }).then((results: any) => {
                   const { lat, lng } = getLatLng(results[0]);
                   const newValue = {
