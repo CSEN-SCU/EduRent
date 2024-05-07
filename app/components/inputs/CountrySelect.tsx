@@ -49,11 +49,11 @@ const ReadySearchBox = ({ locationValue, onChange }: CountrySelectProps) => {
         type="text"
         className={`border-2 border-neutral-300 p-2 rounded-lg w-full
         ${
-          locationValue?.label === "" ? "border-rose-500" : "border-neutral-300"
+          locationValue?.label === "" ? "border-[#b30738]" : "border-neutral-300"
         }
         ${
           locationValue?.label === ""
-            ? "focus:border-rose-500"
+            ? "focus:border-[#b30738]"
             : "focus:border-black"
         }
 
