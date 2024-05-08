@@ -194,8 +194,8 @@ const RentModal = () => {
           subtitle="What amenities do you have?"
         />
         <Counter
-          title="Tennants"
-          subtitle="How many tennants are you looking for?"
+          title="Tenants"
+          subtitle="How many tenants are you looking for?"
           value={guestCount}
           onChange={(value) => setCustomValue("guestCount", value)}
         />
