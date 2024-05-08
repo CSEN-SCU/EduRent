@@ -145,7 +145,9 @@ const ListingClient: React.FC<ListingClientProps> = ({
              bathroomCount={listing.bathroomCount}
              locationValue={listing.locationValue}
              leaseStartDate={new Date(listing.leaseStartDate)}
-             leaseEndDate={new Date(listing.leaseEndDate)}          
+             leaseEndDate={new Date(listing.leaseEndDate)}    
+             listingLatLong={listing.listingLatLong}
+
            />
            <div
              className="
