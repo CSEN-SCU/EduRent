@@ -1,3 +1,4 @@
+'use client';
 import { useCallback, useMemo } from "react";
 
 import listings from "./actions/getListings";
