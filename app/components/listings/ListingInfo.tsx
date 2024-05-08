@@ -31,6 +31,7 @@ interface IListingInfoProps {
  locationValue: string;
  leaseStartDate: Date;
  leaseEndDate: Date;
+ listingLatLong: number[];
 }
 
 
@@ -43,13 +44,17 @@ const ListingInfo: React.FC<IListingInfoProps> = ({
  locationValue,
  category,
  leaseStartDate,
- leaseEndDate
+ leaseEndDate,
+ listingLatLong
 }) => {
  //const { getByValue } = useCountries();
  //const ()
 
+//))_)DKFJOSDJFDSJFLKSDKZLFJSDKL:JFL:KSD
 
- const coordinates = [0,0];
+
+
+ const coordinates = listingLatLong;
 
 
  const start = leaseStartDate.toLocaleDateString('en-US', {
