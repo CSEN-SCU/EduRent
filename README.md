@@ -1,4 +1,4 @@
-# csen-174-s24-project-edurent
+# EduRent
 # 
 
 **Introducing EduRent: Your Ultimate Off-Campus Housing Solution for Santa Clara University Students**
@@ -20,15 +20,6 @@ EduRent is not just another generic housing platform; it's a tailored solution d
 Say goodbye to the stress and uncertainty of finding off-campus housing. With EduRent, discovering the perfect rental property or roommate is easier than ever before. Join the EduRent community today and unlock a world of SCU-specific housing opportunities at your fingertips.
 
 Don't settle for anything less than the best. Choose EduRent and elevate your off-campus housing experience at Santa Clara University.
-
-Wesley Durbano
-Kavya Sharma
-Lauren Hu
-Matthew Tran
-Lucas Jablon
-Anusha Kankapati
-Nicholas Kenny
-
 
 To clone:
 Navigate to desired directory
@@ -100,4 +91,5 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# EduRent-app
+
+**Nick, Anusha, Lucas, Kavya, Wesley, Matt, Lauren**
