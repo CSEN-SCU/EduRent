@@ -2,7 +2,6 @@
 
 
 //import useCountries from "@/app/hooks/useCountries";
-import { User } from "@prisma/client";
 import { IconType } from "react-icons";
 import Avatar from "../Avatar";
 import ListingCategory from "./ListingCategory";
@@ -97,7 +96,7 @@ const ListingInfo: React.FC<IListingInfoProps> = ({
            text-neutral-500
          "
        >
-         <div>{guestCount} person capacity</div>
+         <div>{guestCount} person max capacity</div>
          <div>{roomCount} rooms</div>
          <div>{bathroomCount} bathrooms</div>
        </div>
