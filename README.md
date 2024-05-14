@@ -46,6 +46,7 @@ npm run dev
 ```
 
 ## Environment file
+Create a .env file in your root folder. Within this file:
 ```
 DATABASE_URL="<your mongo db url>"
 NEXTAUTH_SECRET = "NEXTAUTH_SECRET"
@@ -57,7 +58,7 @@ NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="<your cloudinary name>"
 
 NEXT_PUBLIC_GOOGLE_MAPS_API_KEY='<your google maps api key>'
 ```
-
+## Running the app
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
