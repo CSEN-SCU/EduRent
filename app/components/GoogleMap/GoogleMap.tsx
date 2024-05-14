@@ -4,13 +4,24 @@ import { useEffect, useState } from "react";
 import CustomMarker from "../CustomMarker";
 import Map from "../Map";
 import { SafeListing } from "@/app/types";
+import MapComponent from "../Map/Map";
+
+
+// const render = (status: Status) => {
+//   if (status === Status.FAILURE) {
+//     return <p>failed</p>;
+//   }
+//   return <p>loading...</p>;
+// };
+
+const render = (status: Status) => (<h1>{status}</h1>)
 
 interface GoogleMapProps {
   // onIdle?: (map: google.maps.Map) => void;
   // onClick?: (e: google.maps.MapMouseEvent) => void;
   // onMarkerClick: (payload: SafeListing) => void;
-  listings: SafeListing[];
-  center: google.maps.LatLngLiteral;
+  // listings: SafeListing[];
+  // center: google.maps.LatLngLiteral;
   zoom: number;
   apiKey: string;
   // highlightedMarkerId?: string;
@@ -21,47 +32,19 @@ export default function GoogleMap({
   // onClick,
   // onIdle,
   zoom,
-  center,
-  listings,
+  // center,
+  // listings,
   // onMarkerClick,
   // highlightedMarkerId,
 }: GoogleMapProps) {
   
-  const [map, setMap] = useState<google.maps.Map | null>(null);
-
-  useEffect(() => {
-    if (map) {
-      // Your logic when map is ready, if needed
-    }
-  }, [map]);
+  const center = { lat: 37.3489, lng: 121.9368 };
   
   return (
     <div className="flex h-full">
-      <Wrapper
-        apiKey={apiKey}
-        render={(status) =>
-          status === Status.FAILURE ? (
-            <p>Failed to load Google Maps</p>
-          ) : (
-            <Map
-              className="grow h-full"
-              center={center}
-              zoom={zoom}
-              minZoom={2}
-              maxZoom={18}
-              fullscreenControl={false}
-              streetViewControl={false}
-              mapTypeControl={false}
-              zoomControl={false}
-              clickableIcons={false}
-            >
-              {map && listings.map((listing) => (
-                <CustomMarker key={listing.id} listing={listing} map={map} />
-              ))}
-            </Map>
-          )
-        }
-      />
+      <Wrapper apiKey={apiKey} render={render}>
+        <MapComponent />
+      </Wrapper>
     </div>
   );
 }

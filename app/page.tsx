@@ -60,26 +60,16 @@ const Home = async ({ searchParams }: HomeProps) => {
             </div>
           </Container>
         </div>
-        <div className="flex-initial w-2/5 mr-12">
-          {/* <div className="pt-24 h-full">
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    loading="lazy"
-                    src={`https://www.google.com/maps/embed/v1/place?key=${googleMapsApiKey}&q=Space+Needle,Seattle+WA`}>
-                  </iframe>
-            </div> */}
-          <div className="h-screen relative">
-            <GoogleMap
-              apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}
-              center={center}
-              zoom={zoom}
-              listings={listings}
-            // onIdle={onIdle}
-            // onMarkerClick={onMarkerClick}
-            // highlightedMarkerId={highlightedHotel?.hotelId}
-            />
-          </div>
+          <div className="flex-initial w-2/5 mr-12">
+              <GoogleMap
+                // apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}
+                apiKey={googleMapsApiKey}
+                zoom={zoom}
+                // listings={listings}
+              // onIdle={onIdle}
+              // onMarkerClick={onMarkerClick}
+              // highlightedMarkerId={highlightedHotel?.hotelId}
+              />
         </div>
       </div>
     </ClientOnly>
