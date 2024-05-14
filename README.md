@@ -1,4 +1,4 @@
-# csen-174-s24-project-edurent
+# EduRent
 # 
 
 **Introducing EduRent: Your Ultimate Off-Campus Housing Solution for Santa Clara University Students**
@@ -21,36 +21,20 @@ Say goodbye to the stress and uncertainty of finding off-campus housing. With Ed
 
 Don't settle for anything less than the best. Choose EduRent and elevate your off-campus housing experience at Santa Clara University.
 
-Wesley Durbano
-Kavya Sharma
-Lauren Hu
-Matthew Tran
-Lucas Jablon
-Anusha Kankapati
-Nicholas Kenny
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Getting Started
 
 To clone:
 Navigate to desired directory
 ```
-git clone https://github.com/anushaKankipati/EduRent-app
+git clone https://github.com/CSEN-SCU/csen-174-s24-project-edurent
 
-cd into EduRent-app
+cd into local folder
 
-npm install zustand
-npm install axios
-npm install react-hook-form
-npm install react-hot-toast
-npm install -D prisma
-npm install next-auth @prisma/client @next-auth/prisma-adapter
-npm install bcrypt
-npm install -D @types/bcrypt
+npm install 
 
-If you run into issues with the above, then try adding "sudo" to the front and try again
-
-npm install OR sudo npm install
-
-// try the following
+// try the following to run development server
 npm run dev
 
 // if that doesn't work, then delete node_modules and run
@@ -59,25 +43,22 @@ npm install
 // then try
 npm run dev
 
-//and if that doesn't work, you're fucked
 ```
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Environment file
+Create a .env file in your root folder. Within this file:
 ```
+DATABASE_URL="<your mongo db url>"
+NEXTAUTH_SECRET = "NEXTAUTH_SECRET"
 
+GOOGLE_CLIENT_ID="<your google client id>" //for google oauth login. made on google developer console
+GOOGLE_CLIENT_SECRET="<your google client secret>"
+
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="<your cloudinary name>"
+
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY='<your google maps api key>'
+```
+## Running the app
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
@@ -98,4 +79,5 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# EduRent-app
+
+**Nick, Anusha, Lucas, Kavya, Wesley, Matt, Lauren**

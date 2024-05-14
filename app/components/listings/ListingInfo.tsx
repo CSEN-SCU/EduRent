@@ -2,7 +2,6 @@
 
 
 //import useCountries from "@/app/hooks/useCountries";
-import { User } from "@prisma/client";
 import { IconType } from "react-icons";
 import Avatar from "../Avatar";
 import ListingCategory from "./ListingCategory";
@@ -31,6 +30,7 @@ interface IListingInfoProps {
  locationValue: string;
  leaseStartDate: Date;
  leaseEndDate: Date;
+ listingLatLong: number[];
 }
 
 
@@ -43,13 +43,17 @@ const ListingInfo: React.FC<IListingInfoProps> = ({
  locationValue,
  category,
  leaseStartDate,
- leaseEndDate
+ leaseEndDate,
+ listingLatLong
 }) => {
  //const { getByValue } = useCountries();
  //const ()
 
+//))_)DKFJOSDJFDSJFLKSDKZLFJSDKL:JFL:KSD
 
- const coordinates = [0,0];
+
+
+ const coordinates = listingLatLong;
 
 
  const start = leaseStartDate.toLocaleDateString('en-US', {
@@ -92,7 +96,7 @@ const ListingInfo: React.FC<IListingInfoProps> = ({
            text-neutral-500
          "
        >
-         <div>{guestCount} person capacity</div>
+         <div>{guestCount} person max capacity</div>
          <div>{roomCount} rooms</div>
          <div>{bathroomCount} bathrooms</div>
        </div>
