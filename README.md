@@ -1,11 +1,11 @@
 # EduRent
-# 
 
-**Introducing EduRent: Your Ultimate Off-Campus Housing Solution for Santa Clara University Students**
+## Introducing EduRent: 
+**Your Ultimate Off-Campus Housing Solution for Santa Clara University Students**
 
 Are you a Santa Clara University student struggling to find the perfect off-campus housing? Do you wish there was a platform tailored specifically to your needs, making the search for the ideal rental property or roommate hassle-free? Look no further! EduRent is here to revolutionize your housing experience.
 
-EduRent is not just another generic housing platform; it's a tailored solution designed exclusively for SCU students like you. Built off the Next.js framework by a team of dedicated students as part of our COEN 174 class project, our web app connects students and landlords in a seamless and intuitive way, ensuring you find the perfect housing situation to fit your lifestyle and preferences.
+EduRent is not just another generic housing platform; it's a tailored solution designed exclusively for SCU students like you. Built off the Next.js framework by a team of dedicated students as part of our CSEN 174 class project, our web app connects students and landlords in a seamless and intuitive way, ensuring you find the perfect housing situation to fit your lifestyle and preferences.
 
 **Why EduRent?**
 
@@ -65,14 +65,6 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
 ## Deploy on Vercel
 
