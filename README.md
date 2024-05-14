@@ -21,27 +21,20 @@ Say goodbye to the stress and uncertainty of finding off-campus housing. With Ed
 
 Don't settle for anything less than the best. Choose EduRent and elevate your off-campus housing experience at Santa Clara University.
 
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## Getting Started
+
 To clone:
 Navigate to desired directory
 ```
-git clone https://github.com/anushaKankipati/EduRent-app
+git clone https://github.com/CSEN-SCU/csen-174-s24-project-edurent
 
-cd into EduRent-app
+cd into local folder
 
-npm install zustand
-npm install axios
-npm install react-hook-form
-npm install react-hot-toast
-npm install -D prisma
-npm install next-auth @prisma/client @next-auth/prisma-adapter
-npm install bcrypt
-npm install -D @types/bcrypt
+npm install 
 
-If you run into issues with the above, then try adding "sudo" to the front and try again
-
-npm install OR sudo npm install
-
-// try the following
+// try the following to run development server
 npm run dev
 
 // if that doesn't work, then delete node_modules and run
@@ -50,23 +43,6 @@ npm install
 // then try
 npm run dev
 
-//and if that doesn't work, you're fucked
-```
-
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
