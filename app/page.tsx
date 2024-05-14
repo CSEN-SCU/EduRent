@@ -5,7 +5,7 @@ import Container from "./components/Container";
 import EmptyState from "./components/EmptyState";
 import ListingCard from "./components/listings/ListingCard";
 import GoogleMap from "./components/GoogleMap";
-import { useCallback, useState } from "react";
+
 
 export default async function Home() {
   const listings = await getListings();
@@ -13,12 +13,8 @@ export default async function Home() {
 
   const googleMapsApiKey = process.env.GOOGLE_MAPS_EMBED_KEY;
 
-  const [center, setCenter] = useState<google.maps.LatLngLiteral>({
-    lat: 37.3489,//SCU lat and long
-    lng: 121.9368,
-  });
-
-  const [zoom, setZoom] = useState<number>(15);
+  const center = {lat: 37.3489,lng: 121.9368};//SCU coordinates
+  const zoom = 15;
 
   if (!googleMapsApiKey) {
     // Handle case when API key is not available
@@ -75,7 +71,7 @@ export default async function Home() {
               apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}
               center={center}
               zoom={zoom}
-              markers={listings}
+              listings={listings}
               // onIdle={onIdle}
               // onMarkerClick={onMarkerClick}
               // highlightedMarkerId={highlightedHotel?.hotelId}

@@ -1,25 +1,15 @@
 'use client';
 import { Status, Wrapper } from "@googlemaps/react-wrapper";
-import { useMemo } from "react";
-
+import { useEffect, useState } from "react";
+import CustomMarker from "../CustomMarker";
 import Map from "../Map";
-import Marker from "../CustomMarker";
-import getListings from "@/app/actions/getListings";
 import { SafeListing } from "@/app/types";
-
-const listings = getListings();
-const render = (status: Status) => {
-  if (status === Status.FAILURE) {
-    return <p>failed</p>;
-  }
-  return <p>loading...</p>;
-};
 
 interface GoogleMapProps {
   // onIdle?: (map: google.maps.Map) => void;
   // onClick?: (e: google.maps.MapMouseEvent) => void;
   // onMarkerClick: (payload: SafeListing) => void;
-  markers?: SafeListing[];
+  listings: SafeListing[];
   center: google.maps.LatLngLiteral;
   zoom: number;
   apiKey: string;
@@ -32,41 +22,46 @@ export default function GoogleMap({
   // onIdle,
   zoom,
   center,
-  markers,
+  listings,
   // onMarkerClick,
   // highlightedMarkerId,
 }: GoogleMapProps) {
-  const filtered = useMemo(() => {
-    return markers?.filter((m) => m.latitude && m.longitude);
-  }, [markers]);
+  
+  const [map, setMap] = useState<google.maps.Map | null>(null);
 
+  useEffect(() => {
+    if (map) {
+      // Your logic when map is ready, if needed
+    }
+  }, [map]);
+  
   return (
     <div className="flex h-full">
-      <Wrapper apiKey={apiKey} render={render}>
-        <Map
-          className="grow h-full"
-          center={center}
-          zoom={zoom}
-          minZoom={2}
-          maxZoom={18}
-          // onIdle={onIdle}
-          // onClick={onClick}
-          fullscreenControl={false}
-          streetViewControl={false}
-          mapTypeControl={false}
-          zoomControl={false}
-          clickableIcons={false}
-        >
-          {filtered?.map((listings) => (
-            <Marker
-              key={listings.id || listings.title}//maybe not listings.title here
-              listing={listings}
-              // onClick={onMarkerClick}
-              // highlight={listings.id === highlightedMarkerId}
-            />
-          ))}
-        </Map>
-      </Wrapper>
+      <Wrapper
+        apiKey={apiKey}
+        render={(status) =>
+          status === Status.FAILURE ? (
+            <p>Failed to load Google Maps</p>
+          ) : (
+            <Map
+              className="grow h-full"
+              center={center}
+              zoom={zoom}
+              minZoom={2}
+              maxZoom={18}
+              fullscreenControl={false}
+              streetViewControl={false}
+              mapTypeControl={false}
+              zoomControl={false}
+              clickableIcons={false}
+            >
+              {map && listings.map((listing) => (
+                <CustomMarker key={listing.id} listing={listing} map={map} />
+              ))}
+            </Map>
+          )
+        }
+      />
     </div>
   );
 }
