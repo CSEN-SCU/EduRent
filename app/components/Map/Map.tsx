@@ -1,7 +1,16 @@
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
+import { LatLngLiteral } from "leaflet";
 import { useEffect, useRef, useState } from "react";
 
-export default function MapComponent(){
+interface MapComponentProps {
+  zoom: number;
+  center: LatLngLiteral;
+}
+
+const MapComponent : React.FC<MapComponentProps> = ({
+  zoom,
+  center
+})=>{
   const [map, setMap] = useState<google.maps.Map>()
   const ref = useRef<HTMLDivElement>()
   const [markerCluster, setMarkerClusters] = useState<MarkerClusterer>();
@@ -10,8 +19,8 @@ export default function MapComponent(){
   useEffect(()=>{
     if(ref.current && !map){
       setMap(new window.google.maps.Map(ref.current, {
-        center: {lat: 4.4333479181711075, lng:-75.21505129646759},
-        zoom: 10,
+        center: center,
+        zoom: zoom,
       }))
     }
     if(map && !markerCluster){
@@ -38,7 +47,9 @@ export default function MapComponent(){
 
   return (
     <>
-      <div ref={ref as any} style={{height: "100%", width: "700px", minHeight:"700px"}} ></div>
+      <div ref={ref as any} style={{height: "825px", width: "700px", minHeight:"300px"}} ></div>
     </>
   )
 }
+
+export default MapComponent;
