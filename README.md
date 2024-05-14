@@ -45,6 +45,19 @@ npm run dev
 
 ```
 
+## Environment file
+```
+DATABASE_URL="<your mongo db url>"
+NEXTAUTH_SECRET = "NEXTAUTH_SECRET"
+
+GOOGLE_CLIENT_ID="<your google client id>" //for google oauth login. made on google developer console
+GOOGLE_CLIENT_SECRET="<your google client secret>"
+
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="<your cloudinary name>"
+
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY='<your google maps api key>'
+```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
