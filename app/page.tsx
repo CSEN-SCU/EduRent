@@ -1,14 +1,17 @@
 import getCurrentUser from "./actions/getCurrentUser";
-import getListings from "./actions/getListings";
+import getListings, { IListingParams } from "./actions/getListings";
 import ClientOnly from "./components/ClientOnly";
 import Container from "./components/Container";
 import EmptyState from "./components/EmptyState";
 import ListingCard from "./components/listings/ListingCard";
 import GoogleMap from "./components/GoogleMap";
 
+interface HomeProps {
+  searchParams: IListingParams;
+}
 
-export default async function Home() {
-  const listings = await getListings();
+const Home = async ({searchParams}: HomeProps) => {
+  const listings = await getListings(searchParams);
   const currentUser = await getCurrentUser();
 
   const googleMapsApiKey = process.env.GOOGLE_MAPS_EMBED_KEY;
@@ -21,7 +24,17 @@ export default async function Home() {
     return <div>Error: Google Maps API key is not provided.</div>;
   }
 
-  if(listings.length == 0) {
+  const googleMapsApiKey = process.env.GOOGLE_MAPS_EMBED_KEY;
+
+  const center = {lat: 37.3489,lng: 121.9368};//SCU coordinates
+  const zoom = 15;
+
+  if (!googleMapsApiKey) {
+    // Handle case when API key is not available
+    return <div>Error: Google Maps API key is not provided.</div>;
+  }
+
+  if(listings.length === 0) {
     return(
       <ClientOnly>
         <EmptyState showReset />
@@ -82,3 +95,5 @@ export default async function Home() {
     </ClientOnly>
   );
 }
+
+export default Home;
