@@ -29,7 +29,7 @@ const Home = async ({ searchParams }: HomeProps) => {
       <ClientOnly>
         <EmptyState showReset />
       </ClientOnly>
-    )
+    );
   }
 
   return (
@@ -75,6 +75,6 @@ const Home = async ({ searchParams }: HomeProps) => {
       </div>
     </ClientOnly>
   );
-}
+};
 
 export default Home;
