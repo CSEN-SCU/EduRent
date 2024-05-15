@@ -1,20 +1,24 @@
 'use client';
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import OverlayView from "../OverlayView";
 import { motion } from "framer-motion";
 import { SafeListing } from "@/app/types";
 import { useRouter } from "next/navigation";
+import ListingCard from "../listings/ListingCard";
 
 
 interface CustomMarkerProps {
   data : SafeListing; 
   map?: google.maps.Map;
+  currentUser?: any;
 }
 
 const CustomMarker : React.FC<CustomMarkerProps> = ({
   data,
-  map
+  map,
+  currentUser
 }) => {
+  const [selectedListing, setSelectedListing] = useState<SafeListing | null>(null);
   const latLong = data.listingLatLong;
   const lat = latLong[0];
   const long = latLong[1];
@@ -24,7 +28,8 @@ const CustomMarker : React.FC<CustomMarkerProps> = ({
   const handleClick = useCallback(() => {
     // This should send to individual listing******
     console.log("Listing clicked!:)", data.id);
-    router.push(`/listings/${data.id}`);
+    setSelectedListing(data);
+    // router.push(`/listings/${data.id}`);
   }, [data.id]);
 
   const markerContent = useMemo(() => `$ ${price}`, [price]);
@@ -38,7 +43,8 @@ const CustomMarker : React.FC<CustomMarkerProps> = ({
             lng: long as number,
           }}
           map={map}
-          zIndex={Highlight ? 99 : 0}
+          // zIndex={Highlight ? 99 : 0}
+          zIndex={0}
         >
           <motion.div
             initial={{ opacity: 0 }}
@@ -51,13 +57,36 @@ const CustomMarker : React.FC<CustomMarkerProps> = ({
             }}
           >
             <button
-              className={`rounded-full bg-rose-900 py-1.5 px-2 drop-shadow text-xs text-white ${
-                Highlight && "text-black bg-rose-900 font-bold py-2 px-2.5"
-              }`}
+            //  ${ Highlight && "text-black bg-rose-900 font-bold py-2 px-2.5"}
+              className={`rounded-full bg-rose-900 py-1.5 px-2 drop-shadow text-xs text-white`}
               onClick={handleClick}
             >{`$ ${price}`}</button>
           </motion.div>
         </OverlayView>
+      )}
+      {selectedListing && map && (
+      <OverlayView
+          position={{
+            lat: lat as number,
+            lng: long as number,
+          }}
+          map={map}
+          zIndex={1}
+      >
+          <div className="relative">
+            <div className="absolute bottom-0 left-0 right-0 z-50  bg-white shadow-lg rounded-lg p-4"
+              style={{ width: '320px' }} // This ensures the width is 320px (20rem) // This ensures the width is 24rem or 90% of the viewport
+            >
+              <ListingCard data={selectedListing} currentUser={currentUser} />
+              <button
+                className="absolute top-2 right-2 bg-gray-200 p-2 rounded-full shadow"
+                onClick={() => setSelectedListing(null)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+      </OverlayView>
       )}
     </>
   );

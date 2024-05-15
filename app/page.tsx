@@ -34,8 +34,8 @@ const Home = async ({ searchParams }: HomeProps) => {
 
   return (
     <ClientOnly>
-      <div className="flex">
-        <div className="flex-initial w-3/5">
+      <div className="flex h-screen">
+        <div className="flex-initial w-3/5 overflow-y-auto">
           <Container>
             <div className="
           pt-24
@@ -61,17 +61,14 @@ const Home = async ({ searchParams }: HomeProps) => {
             </div>
           </Container>
         </div>
-          <div className="flex-initial w-2/5">
-              <GoogleMap
-                // apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}
-                apiKey={googleMapsApiKey}
-                zoom={zoom}
-                center={center}
-                listings={listings}
-              // onIdle={onIdle}
-              // onMarkerClick={onMarkerClick}
-              // highlightedMarkerId={highlightedHotel?.hotelId}
-              />
+        <div className="flex-initial w-2/5">
+          <GoogleMap
+            apiKey={googleMapsApiKey}
+            zoom={zoom}
+            center={center}
+            listings={listings}
+            currentUser = {currentUser}
+          />
         </div>
       </div>
     </ClientOnly>
