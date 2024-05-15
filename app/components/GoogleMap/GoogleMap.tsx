@@ -6,6 +6,7 @@ import Map from "../Map";
 import { SafeListing } from "@/app/types";
 import MapComponent from "../Map/Map";
 import { LatLngLiteral } from "leaflet";
+import { IListingParams } from '../../actions/getListings';
 
 
 // const render = (status: Status) => {
@@ -26,18 +27,15 @@ interface GoogleMapProps {
   zoom: number;
   apiKey: string;
   center: LatLngLiteral;
+  listings: SafeListing[];
   // highlightedMarkerId?: string;
 }
 
 export default function GoogleMap({
   apiKey,
-  // onClick,
-  // onIdle,
   zoom,
   center,
-  // listings,
-  // onMarkerClick,
-  // highlightedMarkerId,
+  listings
 }: GoogleMapProps) {
   
   // const center = { lat: 37.3489, lng: 121.9368 };
@@ -48,7 +46,16 @@ export default function GoogleMap({
         <MapComponent
           zoom={zoom}
           center={center}
-        />
+        >
+              {listings.map((listing) => {
+                return (
+                  <CustomMarker
+                    key={listing.id}
+                    data={listing}
+                  />
+                )
+              })}
+        </MapComponent>
       </Wrapper>
     </div>
   );

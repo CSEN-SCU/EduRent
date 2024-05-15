@@ -1,19 +1,23 @@
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import { LatLngLiteral } from "leaflet";
-import { useEffect, useRef, useState } from "react";
+import { Children, cloneElement, isValidElement, useEffect, useRef, useState } from "react";
+import type { ReactNode } from "react";
 
 interface MapComponentProps {
   zoom: number;
   center: LatLngLiteral;
+  // children?: ReactNode;
+  children?: React.ReactElement<google.maps.MarkerOptions>;
 }
 
 const MapComponent : React.FC<MapComponentProps> = ({
   zoom,
-  center
+  center,
+  children,
 })=>{
   const [map, setMap] = useState<google.maps.Map>()
   const ref = useRef<HTMLDivElement>()
-  const [markerCluster, setMarkerClusters] = useState<MarkerClusterer>();
+  // const [markerCluster, setMarkerClusters] = useState<MarkerClusterer>();
   const [marker, setMarker] = useState<{lat: number, lng: number} | undefined>();
 
   useEffect(()=>{
@@ -23,31 +27,40 @@ const MapComponent : React.FC<MapComponentProps> = ({
         zoom: zoom,
       }))
     }
-    if(map && !markerCluster){
+    // if(map && !markerCluster){
+    if(map){
+      map.setMapTypeId('satellite');
+      map.setTilt(45);
       map.addListener('click', (e: google.maps.MapMouseEvent)=> {
         if(e.latLng){
           const {lat, lng} = e.latLng
           setMarker({lat: lat(), lng: lng()})
         }
       })
-      setMarkerClusters(new MarkerClusterer({map, markers: [], }));
+      // setMarkerClusters(new MarkerClusterer({map, markers: [], }));
     }
-  }, [map, markerCluster])
+  // }, [map, markerCluster])
+  }, [map])
   
-  useEffect(()=> {
-    if(marker && markerCluster){
-      markerCluster.clearMarkers();
-      markerCluster.addMarker(
-        new window.google.maps.Marker({
-          position: {lat: marker.lat, lng: marker.lng}
-        })
-      )
-    }
-  }, [marker, markerCluster])
+  // useEffect(()=> {
+  //   if(marker && markerCluster){
+  //     markerCluster.clearMarkers();
+  //     markerCluster.addMarker(
+  //       new window.google.maps.Marker({
+  //         position: {lat: marker.lat, lng: marker.lng}
+  //       })
+  //     )
+  //   }
+  // }, [marker, markerCluster])
 
   return (
     <>
       <div ref={ref as any} style={{height: "825px", width: "700px", minHeight:"300px"}} ></div>
+      {Children.map(children, (child) => {
+        if (isValidElement(child)) {
+          return cloneElement(child, { map });
+        }
+      })}
     </>
   )
 }

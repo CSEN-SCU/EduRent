@@ -17,7 +17,7 @@ const Home = async ({ searchParams }: HomeProps) => {
   const googleMapsApiKey = process.env.GOOGLE_MAPS_EMBED_KEY;
 
   const center = { lat: 37.3489, lng: -121.9368 };//SCU coordinates
-  const zoom = 15;
+  const zoom = 17;
 
   if (!googleMapsApiKey) {
     // Handle case when API key is not available
@@ -66,7 +66,7 @@ const Home = async ({ searchParams }: HomeProps) => {
                 apiKey={googleMapsApiKey}
                 zoom={zoom}
                 center={center}
-                // listings={listings}
+                listings={listings}
               // onIdle={onIdle}
               // onMarkerClick={onMarkerClick}
               // highlightedMarkerId={highlightedHotel?.hotelId}
