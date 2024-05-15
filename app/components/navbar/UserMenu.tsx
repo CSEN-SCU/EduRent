@@ -107,14 +107,38 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                   }}
                   label="My properties" //change this later
                 />
-                <MenuItem onClick={rentModal.onOpen} label="Rent my space" />
+                <MenuItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    rentModal.onOpen();
+                  }}
+                  label="Rent my space"
+                />
                 <hr />
-                <MenuItem onClick={() => signOut()} label="Logout" />
+                <MenuItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    signOut();
+                  }}
+                  label="Logout"
+                />
               </>
             ) : (
               <>
-                <MenuItem onClick={loginModal.onOpen} label="Login" />
-                <MenuItem onClick={registerModal.onOpen} label="Sign up" />
+                <MenuItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    loginModal.onOpen();
+                  }}
+                  label="Login"
+                />
+                <MenuItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    registerModal.onOpen();
+                  }}
+                  label="Sign up"
+                />
               </>
             )}
           </div>
