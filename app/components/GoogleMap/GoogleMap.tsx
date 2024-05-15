@@ -41,7 +41,8 @@ export default function GoogleMap({
   // const center = { lat: 37.3489, lng: 121.9368 };
   
   return (
-    <div className="flex h-full">
+    <div className="flex h-full mt-4 pt-24"> 
+   {/* <div className="flex h-full"> */}
       <Wrapper apiKey={apiKey} render={render}>
         <MapComponent
           zoom={zoom}

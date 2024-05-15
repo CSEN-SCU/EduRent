@@ -40,7 +40,7 @@ const MapComponent : React.FC<MapComponentProps> = ({
   
   return (
     <>
-      <div ref={ref as any} style={{height: "825px", width: "700px", minHeight:"300px"}} ></div>
+      <div ref={ref as any} style={{height: "730px", width: "700px", minHeight:"300px"}} ></div>
       {Children.map(children, (child) => {
         if (isValidElement(child)) {
           return cloneElement(child, { map });

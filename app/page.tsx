@@ -61,7 +61,7 @@ const Home = async ({ searchParams }: HomeProps) => {
             </div>
           </Container>
         </div>
-          <div className="flex-initial w-2/5 mr-12">
+          <div className="flex-initial w-2/5">
               <GoogleMap
                 // apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}
                 apiKey={googleMapsApiKey}
