@@ -19,13 +19,13 @@ interface GoogleMapProps {
   currentUser?: any;
 }
 
-export default function GoogleMap({
+const GoogleMap: React.FC<GoogleMapProps> = ({
   apiKey,
   zoom,
   center,
   listings
-}: GoogleMapProps) {
-  
+}) => {
+  const [selectedListing, setSelectedListing] = useState<SafeListing | null>(null);
   return (
     <div className="flex mt-4 pt-24 overflow-clip"> 
       <Wrapper apiKey={apiKey} render={render}>
@@ -38,6 +38,8 @@ export default function GoogleMap({
                   <CustomMarker
                     key={listing.id}
                     data={listing}
+                    selectedListing={selectedListing}
+                    setSelectedListing={setSelectedListing}
                   />
                 )
               })}
@@ -46,3 +48,5 @@ export default function GoogleMap({
     </div>
   );
 }
+
+export default GoogleMap;

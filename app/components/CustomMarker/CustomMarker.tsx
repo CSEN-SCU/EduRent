@@ -11,14 +11,18 @@ interface CustomMarkerProps {
   data : SafeListing; 
   map?: google.maps.Map;
   currentUser?: any;
+  selectedListing: SafeListing | null;
+  setSelectedListing: (listing: SafeListing | null) => void;
 }
 
 const CustomMarker : React.FC<CustomMarkerProps> = ({
   data,
   map,
-  currentUser
+  currentUser,
+  selectedListing,
+  setSelectedListing,
 }) => {
-  const [selectedListing, setSelectedListing] = useState<SafeListing | null>(null);
+  // const [selectedListing, setSelectedListing] = useState<SafeListing | null>(null);
   const latLong = data.listingLatLong;
   const lat = latLong[0];
   const long = latLong[1];
@@ -30,7 +34,8 @@ const CustomMarker : React.FC<CustomMarkerProps> = ({
     console.log("Listing clicked!:)", data.id);
     setSelectedListing(data);
     // router.push(`/listings/${data.id}`);
-  }, [data.id]);
+  }, [data, setSelectedListing]);
+  //data.id
 
   const markerContent = useMemo(() => `$ ${price}`, [price]);
 
@@ -43,7 +48,6 @@ const CustomMarker : React.FC<CustomMarkerProps> = ({
             lng: long as number,
           }}
           map={map}
-          // zIndex={Highlight ? 99 : 0}
           zIndex={0}
         >
           <motion.div
@@ -57,14 +61,13 @@ const CustomMarker : React.FC<CustomMarkerProps> = ({
             }}
           >
             <button
-            //  ${ Highlight && "text-black bg-rose-900 font-bold py-2 px-2.5"}
               className={`rounded-full bg-rose-900 py-1.5 px-2 drop-shadow text-xs text-white`}
               onClick={handleClick}
             >{`$ ${price}`}</button>
           </motion.div>
         </OverlayView>
       )}
-      {selectedListing && map && (
+      {selectedListing && selectedListing.id === data.id && map && (
       <OverlayView
           position={{
             lat: lat as number,
@@ -75,15 +78,15 @@ const CustomMarker : React.FC<CustomMarkerProps> = ({
       >
           <div className="relative">
             <div className="absolute bottom-0 left-0 right-0 z-50  bg-white shadow-lg rounded-lg p-4"
-              style={{ width: '320px' }} // This ensures the width is 320px (20rem) // This ensures the width is 24rem or 90% of the viewport
+              style={{ width: '280px', height: '360px' }} // This ensures the width is 320px (20rem) // This ensures the width is 24rem or 90% of the viewport
             >
               <ListingCard data={selectedListing} currentUser={currentUser} />
-              <button
+              {/* <button
                 className="absolute top-2 right-2 bg-gray-200 p-2 rounded-full shadow"
                 onClick={() => setSelectedListing(null)}
               >
                 Close
-              </button>
+              </button> */}
             </div>
           </div>
       </OverlayView>
