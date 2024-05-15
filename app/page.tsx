@@ -47,6 +47,7 @@ const Home = async ({ searchParams }: HomeProps) => {
           xl:grid-cols-3
           2xl:grid-cols-3
           gap-8
+          md:mt-12
           ">
               {listings.map((listing) => {
                 return (
