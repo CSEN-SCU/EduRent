@@ -35,7 +35,7 @@ const Home = async ({ searchParams }: HomeProps) => {
   return (
     <ClientOnly>
       <div className="flex h-screen">
-        <div className="flex-initial w-3/5 overflow-y-auto">
+        <div className="flex-initial w-3/5 h-full overflow-y-auto">
           <Container>
             <div className="
           pt-24
@@ -61,7 +61,7 @@ const Home = async ({ searchParams }: HomeProps) => {
             </div>
           </Container>
         </div>
-        <div className="flex-initial w-2/5">
+        <div className="flex-initial w-2/5 h-screen">
           <GoogleMap
             apiKey={googleMapsApiKey}
             zoom={zoom}

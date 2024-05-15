@@ -12,11 +12,6 @@ import { IListingParams } from '../../actions/getListings';
 const render = (status: Status) => (<h1>{status}</h1>)
 
 interface GoogleMapProps {
-  // onIdle?: (map: google.maps.Map) => void;
-  // onClick?: (e: google.maps.MapMouseEvent) => void;
-  // onMarkerClick: (payload: SafeListing) => void;
-  // listings: SafeListing[];
-  // center: google.maps.LatLngLiteral;
   zoom: number;
   apiKey: string;
   center: LatLngLiteral;
@@ -31,11 +26,8 @@ export default function GoogleMap({
   listings
 }: GoogleMapProps) {
   
-  // const center = { lat: 37.3489, lng: 121.9368 };
-  
   return (
-    <div className="flex h-full mt-4 pt-24"> 
-   {/* <div className="flex h-full"> */}
+    <div className="flex mt-4 pt-24 overflow-clip"> 
       <Wrapper apiKey={apiKey} render={render}>
         <MapComponent
           zoom={zoom}
