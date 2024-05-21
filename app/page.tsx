@@ -17,7 +17,7 @@ const Home = async ({ searchParams }: HomeProps) => {
   const googleMapsApiKey = process.env.GOOGLE_MAPS_EMBED_KEY;
 
   const center = { lat: 37.3489, lng: -121.9368 };//SCU coordinates
-  const zoom = 17;
+  const zoom = 15;
 
   if (!googleMapsApiKey) {
     // Handle case when API key is not available
@@ -34,21 +34,38 @@ const Home = async ({ searchParams }: HomeProps) => {
 
   return (
     <ClientOnly>
-      <div className="flex">
-        <div className="flex-initial w-3/5">
+      <div className="flex h-screen">
+        <div className="flex-initial w-2/5 overflow-hidden">
+                <div className="sticky top-0 h-screen">
+                  <GoogleMap
+                    // apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}
+                    apiKey={googleMapsApiKey}
+                    zoom={zoom}
+                    center={center}
+                    listings={listings}
+                  // onIdle={onIdle}
+                  // onMarkerClick={onMarkerClick}
+                  // highlightedMarkerId={highlightedHotel?.hotelId}
+                  />
+            </div>
+          </div>
+        <div className="flex-initial w-3/5 overflow-y-auto h-full">
+          
           <Container>
             <div className="
-          pt-24
-          grid
-          grid-cols-1
-          sm:grid-cols-2
-          md:grid-cols-3
-          lg:grid-cols-3
-          xl:grid-cols-3
-          2xl:grid-cols-3
-          gap-8
-          md:mt-12
-          ">
+              pt-24
+              pb-5
+              grid
+              grid-cols-1
+              sm:grid-cols-2
+              md:grid-cols-3
+              lg:grid-cols-3
+              xl:grid-cols-3
+              2xl:grid-cols-3
+              gap-8
+              md:mt-20
+              
+            ">
               {listings.map((listing) => {
                 return (
                   <ListingCard
@@ -60,18 +77,6 @@ const Home = async ({ searchParams }: HomeProps) => {
               })}
             </div>
           </Container>
-        </div>
-          <div className="flex-initial w-2/5">
-              <GoogleMap
-                // apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}
-                apiKey={googleMapsApiKey}
-                zoom={zoom}
-                center={center}
-                listings={listings}
-              // onIdle={onIdle}
-              // onMarkerClick={onMarkerClick}
-              // highlightedMarkerId={highlightedHotel?.hotelId}
-              />
         </div>
       </div>
     </ClientOnly>
