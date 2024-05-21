@@ -31,6 +31,10 @@ const CustomMarker: React.FC<CustomMarkerProps> = ({
     } else {
       setSelectedListing(data);
     }
+
+    // if (map) {
+    //   map.setCenter({ lat, lng: long });
+    // }
   }, [data, selectedListing, setSelectedListing]);
 
   const markerContent = useMemo(() => `$ ${price}`, [price]);
@@ -75,17 +79,14 @@ const CustomMarker: React.FC<CustomMarkerProps> = ({
           zIndex={1}
         >
           <div className="relative">
-            <div
-              className="absolute bottom-0 left-0 right-0 z-50 bg-white shadow-lg rounded-lg p-4"
-              style={{ width: '240px', height: '320px' }}
-            >
-              <ListingCard data={selectedListing} currentUser={currentUser} />
-              {/* <button
-                className="absolute top-2 left-2 bg-gray-200 p-2 rounded-full shadow"
-                onClick={() => setSelectedListing(null)}
-              >
+            <div className="absolute w-max h-min bottom-0 transform -translate-x-1/3 left-1/3 right-0 z-50 bg-white shadow-lg rounded-lg p-4 ">
+                <ListingCard data={selectedListing} currentUser={currentUser} />
+                {/* <button
+                  className="absolute top-2 left-2 bg-gray-200 p-2 rounded-full shadow"
+                  onClick={() => setSelectedListing(null)}
+                >
                 Close
-              </button> */}
+                </button> */}
             </div>
           </div>
         </OverlayView>
