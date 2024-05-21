@@ -2,7 +2,7 @@
 import { useCallback, useMemo, useState } from "react";
 import OverlayView from "../OverlayView";
 import { motion } from "framer-motion";
-import { SafeListing } from "@/app/types";
+import { SafeListing, SafeUser } from "@/app/types";
 import { useRouter } from "next/navigation";
 import ListingCard from "../listings/ListingCard";
 
@@ -10,8 +10,8 @@ import ListingCard from "../listings/ListingCard";
 interface CustomMarkerProps {
   data : SafeListing; 
   map?: google.maps.Map;
-  currentUser?: any;
-  selectedListing: SafeListing | null;
+  currentUser?: SafeUser;
+  selectedListing: SafeListing;
   setSelectedListing: (listing: SafeListing | null) => void;
 }
 
@@ -82,7 +82,7 @@ const CustomMarker : React.FC<CustomMarkerProps> = ({
             >
               <ListingCard data={selectedListing} currentUser={currentUser} />
                 <button
-                  className="absolute top-2 right-2 bg-gray-200 p-2 rounded-full shadow"
+                  className="absolute top-2 left-2 bg-gray-200 p-2 rounded-full shadow"
                   onClick={() => setSelectedListing(null)}
                 >
                   Close
