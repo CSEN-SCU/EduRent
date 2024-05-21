@@ -135,7 +135,7 @@ const EditModal = () => {
             gap-8"
     >
       <Heading
-        title="which of the following best describes your place?"
+        title="does this not describe your place?"
         subtitle="Pick a category"
       />
       <div
