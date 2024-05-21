@@ -1,7 +1,7 @@
-import { MarkerClusterer } from "@googlemaps/markerclusterer";
-import { LatLngLiteral } from "leaflet";
 import { Children, cloneElement, isValidElement, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
+import { LatLngLiteral } from "leaflet";
+import { MarkerClusterer } from "@googlemaps/markerclusterer";
 
 interface MapComponentProps {
   zoom: number;
@@ -10,44 +10,53 @@ interface MapComponentProps {
   children?: React.ReactElement<google.maps.MarkerOptions>;
 }
 
-const MapComponent : React.FC<MapComponentProps> = ({
-  zoom,
-  center,
-  children,
-})=>{
+const MapComponent: React.FC<MapComponentProps> = ({ 
+  zoom, 
+  center, 
+  children 
+}) => {
   const [map, setMap] = useState<google.maps.Map>();
-  const ref = useRef<HTMLDivElement>();
-  const [marker, setMarker] = useState<{lat: number, lng: number} | undefined>();
+  const ref = useRef<HTMLDivElement>(null);
+  const [marker, setMarker] = useState<{ lat: number; lng: number } | undefined>();
 
-  useEffect(()=>{
-    if(ref.current && !map){
-      setMap(new window.google.maps.Map(ref.current, {
+  useEffect(() => {
+    if (ref.current && !map) {
+      const newMap = new window.google.maps.Map(ref.current, {
         center: center,
         zoom: zoom,
-      }))
-    }
-    if(map){
-      map.setMapTypeId('satellite');
-      map.setTilt(45);
-      map.addListener('click', (e: google.maps.MapMouseEvent)=> {
-        if(e.latLng){
-          const {lat, lng} = e.latLng
-          setMarker({lat: lat(), lng: lng()})
+      });
+      setMap(newMap);
+
+      newMap.addListener('zoom_changed', () => {
+        const z = newMap.getZoom()!;
+        if (z > 18) {
+          newMap.setTilt(0);
+          newMap.setMapTypeId('hybrid');
+          
+        } else {
+          newMap.setMapTypeId('roadmap');
         }
-      })
+      });
+
+      newMap.addListener('click', (e: google.maps.MapMouseEvent) => {
+        if (e.latLng) {
+          const { lat, lng } = e.latLng;
+          setMarker({ lat: lat(), lng: lng() });
+        }
+      });
     }
-  }, [map])
-  
+  }, [center, zoom, map]);
+
   return (
     <>
-      <div ref={ref as any} style={{height: "735px", width: "700px", minHeight:"300px"}} ></div>
+      <div ref={ref} className="h-full w-full"></div>
       {Children.map(children, (child) => {
         if (isValidElement(child)) {
           return cloneElement(child, { map });
         }
       })}
     </>
-  )
-}
+  );
+};
 
 export default MapComponent;

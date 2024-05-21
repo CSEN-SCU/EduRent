@@ -27,7 +27,8 @@ const GoogleMap: React.FC<GoogleMapProps> = ({
 }) => {
   const [selectedListing, setSelectedListing] = useState<SafeListing | null>(null);
   return (
-    <div className="flex mt-4 pt-24 overflow-clip"> 
+    <div className="flex h-[90%] mt-20 pt-24"> 
+   {/* <div className="flex h-full"> */}
       <Wrapper apiKey={apiKey} render={render}>
         <MapComponent
           zoom={zoom}
