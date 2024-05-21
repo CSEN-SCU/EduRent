@@ -10,6 +10,7 @@ export interface IListingParams {
     endDate?: string;
     locationValue?: string;
     category?: string;
+    price?: string;
   }
 
 export default async function getListings(
@@ -26,6 +27,7 @@ export default async function getListings(
             startDate,
             endDate,
             category,
+            price,
 
         } = params;
 
@@ -44,37 +46,22 @@ export default async function getListings(
                 gte: +roomCount
             }
         }
+
         if(guestCount){
             query.guestCount = {
                 gte: +guestCount
             }
         }
+
         if(bathroomCount){
             query.bathroomCount = {
                 gte: +bathroomCount
             }
         }
 
-        if(locationValue){
-            query.locationValue = locationValue;
-        }
-
-        if (startDate && endDate){
-            query.NOT = {
-                reservations: {
-                    some: {
-                        OR: [
-                            {
-                                endDate: { gte: startDate},
-                                startDate: { lte: startDate}
-                            },
-                            {
-                                startDate: { lte: endDate},
-                                endDate: { gte: endDate}
-                            },
-                        ]
-                    }
-                }
+        if(price){
+            query.price = {
+                lte: +price
             }
         }
 
