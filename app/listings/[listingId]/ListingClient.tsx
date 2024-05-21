@@ -3,6 +3,7 @@ import Container from "@/app/components/Container";
 import ListingHead from "@/app/components/listings/ListingHead";
 import ListingInfo from "@/app/components/listings/ListingInfo";
 import ListingReservation from "@/app/components/listings/ListingReservation";
+import ListingContact from "@/app/components/listings/ListingContact";
 import { categories } from "@/app/components/navbar/Categories";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import { SafeListing, SafeUser } from "@/app/types";
@@ -13,8 +14,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import{Range} from "react-date-range"
-
-
+import { Account } from "@prisma/client";
 
 
 const initialDateRange = {
@@ -30,6 +30,7 @@ interface ListingClientProps {
    user: SafeUser;
  };
  currentUser?: SafeUser | null;
+ account: Account;
 }
 
 
@@ -37,6 +38,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
  listing,
  reservations = [],
  currentUser,
+ account
 }) => {
  const  loginModal = useLoginModal();
  const router = useRouter();
@@ -67,10 +69,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
      return loginModal.onOpen();
    }
 
-
    setIsLoading(true);
-
-
    axios
      .post("/api/reservations", {
        totalPrice,
@@ -90,6 +89,33 @@ const ListingClient: React.FC<ListingClientProps> = ({
        setIsLoading(false);
      });
  }, [totalPrice, dateRange, listing?.id, currentUser, loginModal]);
+
+ const onContact = useCallback(async () => {
+  if (!currentUser) {
+    return loginModal.onOpen();
+  }
+
+  setIsLoading(true);
+
+  axios
+    .post("/api/reservations", {
+      totalPrice,
+      startDate: dateRange.startDate,
+      endDate: dateRange.endDate,
+      listingId: listing?.id,
+    })
+    .then(() => {
+      toast.success("Reservation created successfully");
+      setDateRange(initialDateRange);
+      router.refresh();
+    })
+    .catch(()=>{
+      toast.success("Contacting Landlord");
+    })
+    .finally(() => {
+      setIsLoading(false);
+    });
+}, [totalPrice, dateRange, listing?.id, currentUser, loginModal]);
 
 
  useEffect(() => {
@@ -166,6 +192,12 @@ const ListingClient: React.FC<ListingClientProps> = ({
                onSubmit={onCreateReservation}
                disabled={isLoading}
                disabledDates={disableDates}
+             />
+             <ListingContact
+                email = {listing.user.email}
+                onSubmit={onContact}
+                user = {listing.user}
+                url = "https://mail.google.com/mail/?view=cm&fs=1&to="
              />
            </div>
 
