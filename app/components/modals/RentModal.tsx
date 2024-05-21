@@ -53,6 +53,7 @@ const RentModal = () => {
       description: "",
       leaseStartDate: null,
       leaseEndDate: null,
+      distValue: 0.0,
     },
   });
 
@@ -173,7 +174,7 @@ const RentModal = () => {
       >
         <Heading
           title="Where is your place located?"
-          subtitle="Help guests find you!"
+          subtitle="Help students see where they'll stay!"
         />
 
         <CountrySelect

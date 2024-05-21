@@ -21,6 +21,7 @@ export type CountrySelectValue = {
   latlng: number[]; 
   region: string; 
   locationValue: string;
+  distValue: number;
 };
 
 interface CountrySelectProps {
@@ -88,10 +89,26 @@ const ReadySearchBox = ({ locationValue, onChange }: CountrySelectProps) => {
                 setShowSuggestions(false);
                 getGeocode({ address: description }).then((results: any) => {
                   const { lat, lng } = getLatLng(results[0]);
+                  const toRadians = (degrees: number) => degrees * Math.PI / 180;
+    
+                  const R = 6371; // Earth's radius in kilometers
+
+                  const dLat = toRadians(lat - 37.3476588);
+                  const dLon = toRadians(lng + 121.9393392);
+                  
+                  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                            Math.cos(toRadians(37.3476588)) * Math.cos(toRadians(lat)) *
+                            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+                  
+                  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                  
+                  const distanceInMiles =  R * c * 0.621371;
+
                   const newValue = {
                     ...locationValue,
                     flag: "📍",
                     latlng: [lat, lng],
+                    distValue: distanceInMiles,
                     label: description,
                     region: description,
                     value: description,
@@ -113,14 +130,14 @@ const CountrySelect: React.FC<CountrySelectProps> = ({
 }) => {
   // Google maps script
   const { isLoaded, loadError } = useGoogleMapsScript({
-    googleMapsApiKey: api_key, // only works hardcoded help
+    googleMapsApiKey: api_key, 
     libraries,
   });
 
   if (!isLoaded) return null;
 
   if (loadError) toast.error("Error Loading");
-
+  console.dir(locationValue);
   return <ReadySearchBox locationValue={locationValue} onChange={onChange} />;
 };
 
