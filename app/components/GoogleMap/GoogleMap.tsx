@@ -16,14 +16,15 @@ interface GoogleMapProps {
   apiKey: string;
   center: LatLngLiteral;
   listings: SafeListing[];
-  currentUser?: any;
+  currentUser?: SafeUser | null;
 }
 
 const GoogleMap: React.FC<GoogleMapProps> = ({
   apiKey,
   zoom,
   center,
-  listings
+  listings,
+  currentUser
 }) => {
   const [selectedListing, setSelectedListing] = useState<SafeListing | null>(null);
   return (
@@ -41,6 +42,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({
                     data={listing}
                     selectedListing={selectedListing}
                     setSelectedListing={setSelectedListing}
+                    currentUser={currentUser}
                   />
                 )
               })}
