@@ -41,6 +41,14 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
     [router]
   );
 
+  const onEdit = useCallback(
+    (id: string) => {
+      // Implement logic to navigate to the edit page with the listing id
+      router.push(`/edit-listing/${id}`);
+    },
+    [router]
+  );
+
   return (
     <Container>
       <Heading title="Properties" subtitle="List of your properties" />
@@ -57,7 +65,7 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
           gap-8
         "
       >
-        {listings.map((listing) => (
+        {/* {listings.map((listing) => (
           <ListingCard
             key={listing.id}
             data={listing}
@@ -65,6 +73,19 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
             onAction={onCancel}
             disabled={deletingId == listing.id}
             actionLabel="Delete property"
+            currentUser={currentUser}
+          />
+        ))} */}
+        {listings.map((listing) => (
+          <ListingCard
+            key={listing.id}
+            data={listing}
+            actionId={listing.id}
+            onAction={onCancel}
+            onEdit={onEdit} // Pass the edit action handler
+            disabled={deletingId == listing.id}
+            actionLabel="Delete property"
+            editLabel="Edit property" // Pass label for the edit button
             currentUser={currentUser}
           />
         ))}

@@ -76,7 +76,7 @@ model Listing {
  leaseEndDate DateTime
  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
  reservations Reservation[]
-listingLatLong Float[]
+ listingLatLong Float[]
 }
 
 

@@ -14,8 +14,10 @@ interface ListingCardProps {
     data : SafeListing;
     reservation?: Reservation;
     onAction?: (id: string) => void;
+    onEdit?: (id: string) => void;
     disabled?: boolean;
     actionLabel?: string;
+    editLabel?: string;
     actionId?: string;
     currentUser?: SafeUser | null;
 }
@@ -24,8 +26,10 @@ const ListingCard : React.FC<ListingCardProps> = ({
     data,
     reservation,
     onAction,
+    onEdit,
     disabled,
     actionLabel,
+    editLabel,
     actionId ="",
     currentUser
 }) => {
@@ -42,7 +46,20 @@ const ListingCard : React.FC<ListingCardProps> = ({
                 return;
             }
             onAction?.(actionId);
-        }, [onAction, actionId, disabled])
+        }, [onAction, actionId, disabled]
+    );
+    
+    const handleEdit = useCallback(
+        (e: React.MouseEvent<HTMLButtonElement>) => {
+            e.stopPropagation();
+
+            if (disabled) {
+                return;
+            }
+            onEdit?.(actionId);
+        },
+        [onEdit, actionId, disabled]
+    );
     
     const price = useMemo(() => {
         if (reservation) {
@@ -50,7 +67,8 @@ const ListingCard : React.FC<ListingCardProps> = ({
         }
 
         return data.price;
-    }, [reservation, data.price]);
+    }, [reservation, data.price]
+    );
 
     const reservationDate = useMemo(() => {
         if(!reservation) {
@@ -113,11 +131,16 @@ const ListingCard : React.FC<ListingCardProps> = ({
                         <div className="font-light"> per month</div>
                     )}
                 </div>
+                {onEdit && editLabel && ( // Render the edit button
+                    <Button 
+                        small label={editLabel} 
+                        onClick={handleEdit} 
+                    />
+                )}
                 {onAction && actionLabel && (
                     <Button
                         disabled={disabled}
-                        small
-                        label={actionLabel}
+                        small label={actionLabel}
                         onClick={handleCancel}
                     />
                 )}
