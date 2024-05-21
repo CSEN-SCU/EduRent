@@ -81,12 +81,12 @@ const CustomMarker : React.FC<CustomMarkerProps> = ({
               style={{ width: '280px', height: '360px' }} // This ensures the width is 320px (20rem) // This ensures the width is 24rem or 90% of the viewport
             >
               <ListingCard data={selectedListing} currentUser={currentUser} />
-              {/* <button
-                className="absolute top-2 right-2 bg-gray-200 p-2 rounded-full shadow"
-                onClick={() => setSelectedListing(null)}
-              >
-                Close
-              </button> */}
+                <button
+                  className="absolute top-2 right-2 bg-gray-200 p-2 rounded-full shadow"
+                  onClick={() => setSelectedListing(null)}
+                >
+                  Close
+                </button>
             </div>
           </div>
       </OverlayView>
