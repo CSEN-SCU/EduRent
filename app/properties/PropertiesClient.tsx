@@ -41,13 +41,13 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
     [router]
   );
 
-  const onEdit = useCallback(
-    (id: string) => {
-      // Implement logic to navigate to the edit page with the listing id
-      router.push(`/edit-listing/${id}`);
-    },
-    [router]
-  );
+  // const onEdit = useCallback(
+  //   (id: string) => {
+  //     // Implement logic to navigate to the edit page with the listing id
+  //     router.push(`/edit-listing/${id}`);
+  //   },
+  //   [router]
+  // );
 
   return (
     <Container>
@@ -83,7 +83,7 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
             data={listing}
             actionId={listing.id}
             onAction={onCancel}
-            onEdit={onEdit} // Pass the edit action handler
+            onEdit={true} // Pass the edit action handler
             disabled={deletingId == listing.id}
             actionLabel="Delete property"
             editLabel="Edit property" // Pass label for the edit button

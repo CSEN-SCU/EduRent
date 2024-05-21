@@ -14,7 +14,7 @@ interface ListingCardProps {
     data : SafeListing;
     reservation?: Reservation;
     onAction?: (id: string) => void;
-    onEdit?: (id: string) => void;
+    onEdit?: boolean;
     disabled?: boolean;
     actionLabel?: string;
     editLabel?: string;
@@ -49,17 +49,17 @@ const ListingCard : React.FC<ListingCardProps> = ({
         }, [onAction, actionId, disabled]
     );
     
-    const handleEdit = useCallback(
-        (e: React.MouseEvent<HTMLButtonElement>) => {
-            e.stopPropagation();
+    // const handleEdit = useCallback(
+    //     (e: React.MouseEvent<HTMLButtonElement>) => {
+    //         e.stopPropagation();
 
-            if (disabled) {
-                return;
-            }
-            onEdit?.(actionId);
-        },
-        [onEdit, actionId, disabled]
-    );
+    //         if (disabled) {
+    //             return;
+    //         }
+    //         onEdit?.(actionId);
+    //     },
+    //     [onEdit, actionId, disabled]
+    // );
     
     const price = useMemo(() => {
         if (reservation) {
@@ -134,7 +134,7 @@ const ListingCard : React.FC<ListingCardProps> = ({
                 {onEdit && editLabel && ( // Render the edit button
                     <Button 
                         small label={editLabel} 
-                        onClick={handleEdit} 
+                        // onClick={handleEdit} 
                     />
                 )}
                 {onAction && actionLabel && (
