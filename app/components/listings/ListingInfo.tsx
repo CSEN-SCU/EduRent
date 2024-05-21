@@ -31,6 +31,7 @@ interface IListingInfoProps {
  leaseStartDate: Date;
  leaseEndDate: Date;
  listingLatLong: number[];
+ distFromBenson: number;
 }
 
 
@@ -44,17 +45,14 @@ const ListingInfo: React.FC<IListingInfoProps> = ({
  category,
  leaseStartDate,
  leaseEndDate,
- listingLatLong
+ listingLatLong,
+ distFromBenson
 }) => {
- //const { getByValue } = useCountries();
- //const ()
 
-//))_)DKFJOSDJFDSJFLKSDKZLFJSDKL:JFL:KSD
 
 
 
  const coordinates = listingLatLong;
-
 
  const start = leaseStartDate.toLocaleDateString('en-US', {
    month: '2-digit',
@@ -69,6 +67,14 @@ const ListingInfo: React.FC<IListingInfoProps> = ({
    year: 'numeric',
  });
 
+ const distanceFromBenson = Number((distFromBenson).toFixed(2));
+
+let locationRating: number;
+ if(Number((distFromBenson).toFixed(1)) > 1){
+  locationRating = 1;
+ }else{
+  locationRating = 10 - (Number((distFromBenson).toFixed(1))*3)
+ }
 
  return (
    <div className="col-span-4 flex flex-col gap-8">
@@ -113,6 +119,9 @@ const ListingInfo: React.FC<IListingInfoProps> = ({
      <div className="text-lg font-light text-neutral-500">{description}</div>
      <hr />
      <div className="text-lg font-light text-neutral-500">Lease term: {start} to {end}</div>
+     <div className="text-lg font-light text-neutral-500">Location Rating {locationRating}/10</div>
+     <div className="text-lg font-light text-neutral-500">Distance from Benson Memorial Center: {distanceFromBenson} miles</div>
+
      <Map center={coordinates} />
    </div>
  );

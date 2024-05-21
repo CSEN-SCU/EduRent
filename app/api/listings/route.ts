@@ -28,7 +28,7 @@ export async function POST(
        price,
        leaseStartDate,
        leaseEndDate,
-       listingLatLong,
+       distFromBenson
    } = body;
   
    Object.keys(body).forEach((value: any) => {
@@ -52,7 +52,8 @@ export async function POST(
            userId: currentUser.id,
            leaseStartDate,
            leaseEndDate,
-           listingLatLong: location.latlng
+           listingLatLong: location.latlng,
+           distFromBenson : location.distValue
        }
    });
 
