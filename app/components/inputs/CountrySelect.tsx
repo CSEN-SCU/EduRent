@@ -13,7 +13,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const libraries: Libraries = ["places"];
-const api_key = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY  as string;
+const api_key = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string;
 
 export type CountrySelectValue = {
   flag: string;

@@ -38,7 +38,7 @@ const PropertiesPage = async () => {
       <PropertiesClient 
         listings={listings} 
         currentUser={currentUser} 
-    />
+      />
     </ClientOnly>
   );
 };
