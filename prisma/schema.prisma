@@ -78,6 +78,7 @@ model Listing {
  reservations Reservation[]
 listingLatLong Float[]
 distFromBenson Float
+
 }
 
 

@@ -43,6 +43,7 @@ const Home = async ({ searchParams }: HomeProps) => {
                     zoom={zoom}
                     center={center}
                     listings={listings}
+                    currentUser={currentUser}
                   // onIdle={onIdle}
                   // onMarkerClick={onMarkerClick}
                   // highlightedMarkerId={highlightedHotel?.hotelId}
