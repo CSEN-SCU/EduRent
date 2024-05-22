@@ -2,7 +2,7 @@
 
 import useEditModal from "@/app/hooks/useEditModal";
 import Modal from "./Modal";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Heading from "../Heading";
 import { categories } from "../navbar/Categories";
 import CategoryInput from "../inputs/CategoryInput";
@@ -56,6 +56,12 @@ const EditModal = () => {
     },
   });
 
+  useEffect(() => {
+    if (editModal.data) {
+      reset(editModal.data);
+    }
+  }, [editModal.data, reset]);
+
   const category = watch("category");
   const location = watch("location");
   const guestCount = watch("guestCount");
@@ -98,7 +104,7 @@ const EditModal = () => {
     axios
       .post("/api/listings", data)
       .then(() => {
-        toast.success("Listing Created");
+        toast.success("Listing Updated");
         router.refresh();
         reset();
         setStep(STEPS.CATEGORY);
@@ -114,7 +120,7 @@ const EditModal = () => {
 
   const actionLabel = useMemo(() => {
     if (step == STEPS.PRICE) {
-      return "Create";
+      return "Update";
     }
 
     return "Next";
@@ -319,7 +325,7 @@ const EditModal = () => {
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}
       secondaryAction={step == STEPS.CATEGORY ? undefined : onBack}
-      title="Post your space on Edurent"
+      title="Edit your edurent listing"
       body={bodyContent}
     />
   );

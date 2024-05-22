@@ -128,27 +128,16 @@ const ListingCard: React.FC<ListingCardProps> = ({
           <div className="font-semibold">${price}</div>
           {!reservation && <div className="font-light"> per month</div>}
         </div>
-        {/* {onEdit &&( // Render the edit button
-            // <Button 
-            //     small label={editLabel} 
-            //     onClick={handleEdit} />
+        {onEdit && editLabel &&(
             <Button
                 onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                     e.stopPropagation();
-                    editModal.onOpen();
+                    editModal.onOpen(data);
                 }}
-            label="Rent my space"
-        />
-        )} */}
-        <Button
-            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                e.stopPropagation();
-                editModal.onOpen();
-                console.log(editModal.isOpen);
-                // rentModal.onOpen();
-            }}
-            small label="Edit Listing"
-        />
+                small label={editLabel}
+            />
+        )}
+
         {onAction && actionLabel && (
           <Button
             disabled={disabled}
