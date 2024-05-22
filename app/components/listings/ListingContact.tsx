@@ -26,7 +26,6 @@ const ListingContact:React.FC<ListingContactProps> = ({
                     onClick={onSubmit}
                 />
             </a>
-            <div>{email}</div>
         </div>
     );
 }
