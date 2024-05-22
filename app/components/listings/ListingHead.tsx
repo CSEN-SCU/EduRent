@@ -9,7 +9,7 @@ import HeartButton from "../inputs/HeartButton";
 interface IListingHeadProps {
   title: string;
   locationValue: string;
-  imageSrc: string;
+  imageSrc: string[];
   id: string;
   currentUser?: SafeUser | null;
 }
@@ -24,6 +24,7 @@ const ListingHead: React.FC<IListingHeadProps> = ({
   //const { getByValue } = useCountries();
 
   const location = locationValue;
+  
 
   return (
     <>
@@ -42,7 +43,7 @@ const ListingHead: React.FC<IListingHeadProps> = ({
       >
         <Image
           alt="Image"
-          src={imageSrc}
+          src={imageSrc[0]}
           fill
           sizes="100%"
           className="object-cover w-full"

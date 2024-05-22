@@ -28,6 +28,7 @@ interface ListingClientProps {
  reservations?: Reservation[];
  listing: SafeListing & {
    user: SafeUser;
+   imageSrc: string[];
  };
  currentUser?: SafeUser | null;
 }
@@ -114,7 +115,6 @@ const ListingClient: React.FC<ListingClientProps> = ({
  const category = useMemo(() => {
    return categories.find((item) => item.label === listing.category);
  }, [listing.category]);
-
 
  return (
    <Container>
