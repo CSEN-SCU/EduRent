@@ -16,7 +16,7 @@ const ListingContact:React.FC<ListingContactProps> = ({
     onSubmit,
     url
 }) => {
-    url = "https://mail.google.com/mail/?view=cm&fs=1&to=" + email
+    url = "mailto:" + email + "?Subject=Interest in EduRent Listing"
     return (
         <div className="p-4">
             <a href = {url}>
