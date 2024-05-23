@@ -94,12 +94,12 @@ const SearchModal = () => {
         bodyContent = (
             <div className="flex flex-col gap-8">
                 <Heading
-                    title="More information"
-                    subtitle="Find your perfect place!"
+                    title="Search Filters"
+                    subtitle="Get listings in which the # of T/R/B is GREATER THAN OR EQUAL TO what you select"
                 />
                 <Counter
                     title="Tenants"
-                    subtitle="How many tenant do you have?"
+                    subtitle="How many tenants do you have?"
                     value={guestCount}
                     onChange={(value) => setGuestCount(value)}
                 />

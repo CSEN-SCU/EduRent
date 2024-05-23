@@ -118,9 +118,22 @@ let locationRating: number;
      <hr />
      <div className="text-lg font-light text-neutral-500">{description}</div>
      <hr />
-     <div className="text-lg font-light text-neutral-500">Lease term: {start} to {end}</div>
-     <div className="text-lg font-light text-neutral-500">Location Rating {locationRating}/10</div>
-     <div className="text-lg font-light text-neutral-500">Distance from Benson Memorial Center: {distanceFromBenson} miles</div>
+    <div className="text-lg font-semibold flex flex-row gap-2 ">
+      <div>Lease Term:</div>
+      <div className="font-light text-neutral-500">{start} — {end}</div>
+    </div>
+     
+    <div className="text-lg font-semibold flex flex-row gap-2 ">
+      <div>Distance from Benson Memorial Center:</div>
+      <div className="font-light text-neutral-500">{distanceFromBenson} miles</div>
+    </div>
+    <div className="text-lg font-semibold flex flex-row gap-2 ">
+      <div>Location Rating:</div>
+      <div className="font-light text-neutral-500">{locationRating}/10</div>
+    </div>
+      
+     
+
 
      <Map center={coordinates} />
    </div>
