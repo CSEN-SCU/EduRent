@@ -4,7 +4,7 @@ import OverlayView from "../OverlayView";
 import { motion } from "framer-motion";
 import { SafeListing, SafeUser } from "@/app/types";
 import ListingCard from "../listings/ListingCard";
-import CloseButton from "../closeButton";
+import CloseButton from "../CloseButton";
 
 interface CustomMarkerProps {
   data: SafeListing;
@@ -86,7 +86,7 @@ const CustomMarker: React.FC<CustomMarkerProps> = ({
                 <CloseButton
                   size={20}
                   onClick={() => setSelectedListing(null)}
-                />{" "}
+                />
               </div>
             </div>
           </div>
