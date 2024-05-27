@@ -61,58 +61,32 @@ const ListingClient: React.FC<ListingClientProps> = ({
   const [totalPrice, setTotalPrice] = useState(listing.price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
 
-  const onCreateReservation = useCallback(async () => {
-    if (!currentUser) {
-      return loginModal.onOpen();
-    }
 
-    setIsLoading(true);
-    axios
-      .post("/api/reservations", {
-        totalPrice,
-        startDate: dateRange.startDate,
-        endDate: dateRange.endDate,
-        listingId: listing?.id,
-      })
-      .then(() => {
-        toast.success("Reservation created successfully");
-        setDateRange(initialDateRange);
-        router.refresh();
-      })
-      .catch(() => {
-        toast.error("Something went wrong.");
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [totalPrice, dateRange, listing?.id, currentUser, loginModal]);
+  // const onCreateReservation = useCallback(async () => {
+  //   if (!currentUser) {
+  //     return loginModal.onOpen();
+  //   }
 
-  const onContact = useCallback(async () => {
-    if (!currentUser) {
-      return loginModal.onOpen();
-    }
-
-    setIsLoading(true);
-
-    axios
-      .post("/api/reservations", {
-        totalPrice,
-        startDate: dateRange.startDate,
-        endDate: dateRange.endDate,
-        listingId: listing?.id,
-      })
-      .then(() => {
-        toast.success("Reservation created successfully");
-        setDateRange(initialDateRange);
-        router.refresh();
-      })
-      .catch(() => {
-        toast.success("Contacting Landlord");
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [totalPrice, dateRange, listing?.id, currentUser, loginModal]);
+  //   setIsLoading(true);
+  //   axios
+  //     .post("/api/reservations", {
+  //       totalPrice,
+  //       startDate: dateRange.startDate,
+  //       endDate: dateRange.endDate,
+  //       listingId: listing?.id,
+  //     })
+  //     .then(() => {
+  //       toast.success("Reservation created successfully");
+  //       setDateRange(initialDateRange);
+  //       router.refresh();
+  //     })
+  //     .catch(() => {
+  //       toast.error("Something went wrong.");
+  //     })
+  //     .finally(() => {
+  //       setIsLoading(false);
+  //     });
+  // }, [totalPrice, dateRange, listing?.id, currentUser, loginModal]);
 
   useEffect(() => {
     if (dateRange.startDate && dateRange.endDate) {
@@ -164,11 +138,14 @@ const ListingClient: React.FC<ListingClientProps> = ({
         />
         <div className="flex justify-start">
         <ListingContact
-          email={listing.user.email}
-          onSubmit={onContact}
-          user={listing.user}
-          url="https://mail.google.com/mail/?view=cm&fs=1&to="
+            title = {listing.title}
+            email={listing.user.email}
+            landlordName={listing.user.name}
+            currentUserName={currentUser?.name}
+            user={listing.user}
+            url="https://mail.google.com/mail/?view=cm&fs=1&to="
         />
+
       </div>
       </div>
     </div>
