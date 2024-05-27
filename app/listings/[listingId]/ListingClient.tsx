@@ -135,76 +135,45 @@ const ListingClient: React.FC<ListingClientProps> = ({
 
   return (
     <Container>
-      <div className="max-w-screen-lg mx-auto pt-20">
-        <div className="flex flex-col gap-6 ">
-          <ListingHead
-            title={listing.title}
-            imageSrc={listing.imageSrc}
-            locationValue={listing.locationValue}
-            id={listing.id}
-            currentUser={currentUser}
-          />
-          <div
-            className="
-           grid
-           grid-cols-1
-           md:grid-cols-7
-           md:gap-10
-           mt-6
-         "
-          >
-            <ListingInfo
-              user={listing.user}
-              category={category}
-              description={listing.description}
-              roomCount={listing.roomCount}
-              guestCount={listing.guestCount}
-              bathroomCount={listing.bathroomCount}
-              locationValue={listing.locationValue}
-              leaseStartDate={new Date(listing.leaseStartDate)}
-              leaseEndDate={new Date(listing.leaseEndDate)}
-              listingLatLong={listing.listingLatLong}
-              distFromBenson={listing.distFromBenson}
-            />
-            <div
-              className="
-               col-span-4              
-               order-first
-               mb-10
-               md:order-last
-               md:col-span-3
-             "
-            >
-              <ListingReservation
-                price={listing.price}
-                totalPrice={totalPrice}
-                onChangeDate={(value) => setDateRange(value)}
-                dateRange={dateRange}
-                onSubmit={onCreateReservation}
-                disabled={isLoading}
-                disabledDates={disableDates}
-              />
-              <ListingContact
-                email={listing.user.email}
-                onSubmit={onContact}
-                user={listing.user}
-                url="https://mail.google.com/mail/?view=cm&fs=1&to="
-              />
-            </div>
+    <div className="max-w-screen-lg mx-auto pt-20 pb-10">
+      <div className="flex flex-col gap-6">
 
-            <div
-              className="
-               col-span-4              
-               order-first
-               mb-10
-               md:order-last
-               md:col-span-3
-             "
-            ></div>
-          </div>
-        </div>
+        <ListingHead
+          title={listing.title}
+          imageSrc={listing.imageSrc}
+          locationValue={listing.locationValue}
+          id={listing.id}
+          currentUser={currentUser}
+
+        />
+        <div className=""></div>
+
+        <ListingInfo
+          user={listing.user}
+          category={category}
+          description={listing.description}
+          roomCount={listing.roomCount}
+          guestCount={listing.guestCount}
+          bathroomCount={listing.bathroomCount}
+          locationValue={listing.locationValue}
+          leaseStartDate={new Date(listing.leaseStartDate)}
+          leaseEndDate={new Date(listing.leaseEndDate)}
+          listingLatLong={listing.listingLatLong}
+          distFromBenson={listing.distFromBenson}
+          price={listing.price}
+        />
+        <div className="flex justify-start">
+        <ListingContact
+          email={listing.user.email}
+          onSubmit={onContact}
+          user={listing.user}
+          url="https://mail.google.com/mail/?view=cm&fs=1&to="
+        />
       </div>
-    </Container>
+      </div>
+    </div>
+  </Container>
+  
   );
 };
 export default ListingClient;
