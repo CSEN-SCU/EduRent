@@ -61,7 +61,7 @@ const CustomMarker: React.FC<CustomMarkerProps> = ({
             }}
           >
             <button
-              className={`rounded-full bg-rose-900 py-1.5 px-2 drop-shadow text-xs text-white`}
+              className={`rounded-full bg-[#862633] py-1 px-1.5 drop-shadow text-xs text-white`}
               onClick={handleClick}
             >
               {markerContent}

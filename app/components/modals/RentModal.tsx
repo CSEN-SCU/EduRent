@@ -136,7 +136,7 @@ const RentModal = () => {
             gap-8"
     >
       <Heading
-        title="which of the following best describes your place?"
+        title="Which of the following best describes your place?"
         subtitle="Pick a category"
       />
       <div
@@ -320,7 +320,7 @@ const RentModal = () => {
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}
       secondaryAction={step == STEPS.CATEGORY ? undefined : onBack}
-      title="Post your space on Edurent"
+      title="Post your space on EduRent"
       body={bodyContent}
     />
   );

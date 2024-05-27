@@ -18,11 +18,11 @@ const ListingContact:React.FC<ListingContactProps> = ({
 }) => {
     url = "mailto:" + email + "?Subject=Interest in EduRent Listing"
     return (
-        <div className="p-4">
+        <div className="p-4 w-[45%]">
             <a href = {url}>
                 <Button
                     disabled={disabled}
-                    label= "Contact"
+                    label= "Contact Landlord"
                     onClick={onSubmit}
                 />
             </a>
