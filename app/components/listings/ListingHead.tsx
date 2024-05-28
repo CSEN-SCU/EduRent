@@ -44,25 +44,25 @@ const ListingHead: React.FC<IListingHeadProps> = ({
           relative
         "
       >
-        <Image
+        {/* <Image
           alt="Image"
           src={imageSrc}
           fill
           sizes="100%"
           className="object-cover w-full"
-        />
+        /> */}
+        <Carousel>
+          <Item img={imageSrc}/>
+          <Item img={imageSrc} />
+          <Item img={imageSrc} />
+          <Item img={imageSrc} />
+          <Item img={imageSrc} />
+        </Carousel>
 
         <div className="absolute top-5 right-5">
           <HeartButton listingId={id} currentUser={currentUser} />
         </div>
       </div>
-      <Carousel title="Carousel">
-        <Item img="https://unsplash.it/475/205" />
-        <Item img="https://unsplash.it/476/205" />
-        <Item img="https://unsplash.it/477/205" />
-        <Item img="https://unsplash.it/478/205" />
-        <Item img="https://unsplash.it/479/205" />
-      </Carousel>
     </>
   );
 };
