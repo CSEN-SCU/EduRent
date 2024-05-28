@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { SafeListing, SafeUser } from "@/app/types";
 import ListingCard from "../listings/ListingCard";
 import CloseButton from "../CloseButton";
+import useListingHoverEffect from "@/app/hooks/useListingHoverEffect";
 
 interface CustomMarkerProps {
   data: SafeListing;
@@ -25,6 +26,9 @@ const CustomMarker: React.FC<CustomMarkerProps> = ({
   const lat = latLong[0];
   const long = latLong[1];
   const price = data.price;
+  const listingHoverEffect = useListingHoverEffect(); 
+
+  const isCurrentHover = listingHoverEffect.currListing === data.id; 
 
   const handleClick = useCallback(() => {
     if (selectedListing && selectedListing.id === data.id) {
@@ -62,7 +66,7 @@ const CustomMarker: React.FC<CustomMarkerProps> = ({
             }}
           >
             <button
-              className={`rounded-full bg-[#862633] py-1 px-1.5 drop-shadow text-xs text-white hover:bg-white hover:text-[#862633] hover:scale-125 hover:border hover:font-bold hover:border-[#862633]`}
+              className={isCurrentHover ? `rounded-full bg-green-900 py-1 px-1.5 text-white scale-125 font-bold`:`rounded-full bg-[#862633] py-1 px-1.5 drop-shadow text-xs text-white hover:bg-white hover:text-[#862633] hover:scale-125 hover:border hover:font-bold hover:border-[#862633]`}
               onClick={handleClick}
             >
               {markerContent}
