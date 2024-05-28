@@ -53,6 +53,7 @@ const RentModal = () => {
       description: "",
       leaseStartDate: null,
       leaseEndDate: null,
+      distValue: 0.0,
     },
   });
 
@@ -135,7 +136,7 @@ const RentModal = () => {
             gap-8"
     >
       <Heading
-        title="which of the following best describes your place?"
+        title="Which of the following best describes your place?"
         subtitle="Pick a category"
       />
       <div
@@ -173,7 +174,7 @@ const RentModal = () => {
       >
         <Heading
           title="Where is your place located?"
-          subtitle="Help guests find you!"
+          subtitle="Help students see where they'll stay!"
         />
 
         <CountrySelect
@@ -319,7 +320,7 @@ const RentModal = () => {
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}
       secondaryAction={step == STEPS.CATEGORY ? undefined : onBack}
-      title="Post your space on Edurent"
+      title="Post your space on EduRent"
       body={bodyContent}
     />
   );

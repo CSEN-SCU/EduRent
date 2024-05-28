@@ -18,7 +18,7 @@ const EmptyState : React.FC<EmptyState> = ({
     const router = useRouter();
     return (
         <div className="
-            h-[60vh]
+            h-[70vh]
             flex
             flex-col
             gap-2
