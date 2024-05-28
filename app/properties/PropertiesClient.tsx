@@ -8,6 +8,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import ListingCard from "../components/listings/ListingCard";
 import { SafeListing, SafeUser } from "../types";
+import EditModal from "../components/modals/EditModal";
 
 interface PropertiesClientProps {
   currentUser?: SafeUser | null;
