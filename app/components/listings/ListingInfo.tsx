@@ -79,7 +79,7 @@ let locationRating: number;
   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
   <div className="col-span-1 flex flex-col gap-8">
     <div className="flex flex-col gap-2">
-      <div className="text-xl font-semibold flex flex-row items-center gap-2">
+      <div className="text-lg font-semibold flex flex-row items-center gap-2">
         <div>Posted by {user?.name}</div>
         <Avatar src={user?.image} />
       </div>
