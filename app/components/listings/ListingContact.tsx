@@ -23,7 +23,7 @@ const ListingContact: React.FC<ListingContactProps> = ({
     const handleContactClick = () => {
         const subject = encodeURIComponent(`Interest in '${title}' listing from EduRent`);
         const body = encodeURIComponent(`Hi, ${landlordName}! \n\nI am interested in your '${title}' listing from EduRent. \n\n<Insert more personalized, relevant info for the landlord. Include what year you are, when/how long you want to lease, and how many tenants are in your group> \n\nRegards, \n${currentUserName}`);
-        const gmailUrl = `${url}${email}&su=${subject}&body=${body}`;
+        const gmailUrl = `${url}${email}&cc=edurentscu@gmail.com&su=${subject}&body=${body}`;
         window.open(gmailUrl, '_blank');
     }
 
