@@ -12,8 +12,10 @@ export const Item = styled.div<ItemProps>`
   text-align: center;
   padding: 100px;
   background-image: ${(props) => `url(${props.img})`};
-  background-size: cover;
-  width: 100vh; 
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100vh;
   height: 60vh;
 `;
 
@@ -26,8 +28,8 @@ export const CarouselContainer = styled.div<CarouselContainerProps>`
   display: flex;
   transition: ${(props) => (props.sliding ? "none" : "transform 1s ease")};
   transform: ${(props) => {
-    if (!props.sliding) return "translateX(calc(-100vh - 20px))"; /* Adjust for new width */
-    if (props.dir === PREV) return "translateX(calc(2 * (-100vh - 20px)))";
+    if (!props.sliding) return "translateX(calc(-100vh))"; /* Adjust for new width */
+    if (props.dir === PREV) return "translateX(calc(2 * (-100vh)))";
     return "translateX(0%)";
   }};
 `;
@@ -43,8 +45,8 @@ interface CarouselSlotProps {
 }
 
 export const CarouselSlot = styled.div<CarouselSlotProps>`
-  flex: 1 0 auto;
-  margin-right: 20px;
+  flex: 0 0 auto;
+  // margin-right: 20px;
   order: ${(props) => props.order};
 `;
 
