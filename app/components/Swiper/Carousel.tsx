@@ -66,13 +66,13 @@ const Carousel: React.FC<CarouselProps> = (props) => {
         onClick={() => slide(PREV)} 
         className="absolute bottom-14 left-5 cursor-pointer text-5xl text-white"
       >
-        <IoIosArrowBack />
+        <IoIosArrowBack className="bg-black"/>
       </div>
       <div 
         onClick={() => slide(NEXT)} 
         className="absolute bottom-14 right-5 cursor-pointer text-5xl text-white"
       >
-        <IoIosArrowForward />
+        <IoIosArrowForward className="bg-black"/>
       </div>
     </div>
   );

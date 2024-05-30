@@ -13,7 +13,7 @@ import React from "react";
 interface IListingHeadProps {
   title: string;
   locationValue: string;
-  imageSrc: string[];
+  imageSrc: string;
   id: string;
   currentUser?: SafeUser | null;
 }
@@ -28,7 +28,6 @@ const ListingHead: React.FC<IListingHeadProps> = ({
   //const { getByValue } = useCountries();
 
   const location = locationValue;
-  
 
   return (
     <>
@@ -47,17 +46,14 @@ const ListingHead: React.FC<IListingHeadProps> = ({
       >
         {/* <Image
           alt="Image"
-          src={imageSrc[0]}
+          src={imageSrc}
           fill
           sizes="100%"
           className="object-cover w-full"
         /> */}
         <Carousel>
-          <Item img={imageSrc}/>
-          <Item img={imageSrc} />
-          <Item img={imageSrc} />
-          <Item img={imageSrc} />
-          <Item img={imageSrc} />
+          <Item img={imageSrc[0]}/>
+          <Item img={imageSrc[1]} />
         </Carousel>
 
         <div className="absolute top-5 right-5">
