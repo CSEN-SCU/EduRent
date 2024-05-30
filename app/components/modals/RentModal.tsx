@@ -47,7 +47,7 @@ const RentModal = () => {
       guestCount: 1,
       roomCount: 1,
       bathroomCount: 1,
-      images: [],
+      imageSrc: [],
       price: 1,
       title: "",
       description: "",
@@ -62,7 +62,7 @@ const RentModal = () => {
   const guestCount = watch("guestCount");
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
-  const images = watch("images");
+  const imageSrc = watch("imageSrc");
   const leaseStartDate = watch("leaseStartDate");
   const leaseEndDate = watch("leaseEndDate");
 
@@ -207,8 +207,8 @@ const RentModal = () => {
           subtitle="You can always add more later"
         />
         <ImageUpload
-          value={images}
-          onChange={(value) => setCustomValue("images", value)}
+          value={imageSrc}
+          onChange={(value) => setCustomValue("imageSrc", value)}
         />
       </div>
     );
