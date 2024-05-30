@@ -19,6 +19,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { Range } from "react-date-range";
 import { Account } from "@prisma/client";
+import Carousel from "@/app/components/Swiper/Carousel";
 
 // lucas was here
 const initialDateRange = {
@@ -31,7 +32,8 @@ interface ListingClientProps {
   reservations?: Reservation[];
   listing: SafeListing & {
     user: SafeUser;
-  };
+    imageSrc: string[];
+ };
   currentUser?: SafeUser | null;
   account: Account;
 }
@@ -103,9 +105,10 @@ const ListingClient: React.FC<ListingClientProps> = ({
     }
   }, [dateRange, listing.price]);
 
-  const category = useMemo(() => {
-    return categories.find((item) => item.label === listing.category);
-  }, [listing.category]);
+ const category = useMemo(() => {
+   return categories.find((item) => item.label === listing.category);
+ }, [listing.category]);
+
 
   return (
     <Container>

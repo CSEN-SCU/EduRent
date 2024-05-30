@@ -10,22 +10,25 @@ declare global {
 }
 
 interface ImageUploadProps {
-  onChange: (value: string) => void;
-  value: string;
+  onChange: (value: string[]) => void;
+  value: string[];
 }
 
 const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => {
   const handleUpload = useCallback((result: any) => {
-      onChange(result.info.secure_url);
-    },
-    [onChange]);
+    const newImageUrl = result.info.secure_url;
+    value.push(newImageUrl);
+    const updatedImages = [...value, newImageUrl];
+    onChange(updatedImages);
+    console.table(value);
+  }, [onChange, value]);
 
   return (
     <CldUploadWidget
       onSuccess={handleUpload}
       uploadPreset="okg5red2"
       options={{
-        maxFiles: 1,
+        maxFiles: 69,
         styles: {
           palette: {
             window: "#F5F5F5",
@@ -70,15 +73,19 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => {
             "
           >
             <TbPhotoPlus size={50} />
-            <div className="font-semibold text-lg">Click to upload a photo</div>
-            {value && (
-              <div className="absolute inset-0 w-full h-full">
-                <Image
-                  alt="Uploaded image"
-                  fill
-                  style={{ objectFit: "cover" }}
-                  src={value}
-                />
+            <div className="font-semibold text-lg">Click to upload photos</div>
+            {value.length > 0 && (
+              <div className="absolute inset-0 w-full h-full grid grid-cols-2 gap-2">
+                {value.map((imageUrl, index) => (
+                  <div key={index} className="relative w-full h-48">
+                    <Image
+                      alt={`Uploaded image ${index + 1}`}
+                      fill
+                      style={{ objectFit: "cover" }}
+                      src={imageUrl}
+                    />
+                  </div>
+                ))}
               </div>
             )}
           </div>

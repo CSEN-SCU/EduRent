@@ -33,8 +33,15 @@ const Home = async ({ searchParams }: HomeProps) => {
   }
 
   return (
+    
     <ClientOnly>
-      <div className="flex h-screen justify-center md:flex-start">
+      <head>
+          <link rel="icon" sizes="any" href="/images/icon.ico" />
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+          <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"/>
+          <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"/>
+      </head>
+      <div className="flex h-screen">
         <div className="flex-initial lg:w-2/5 overflow-hidden">
           <div className="sticky top-0 h-screen">
             <GoogleMap

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import useRentModal from "@/app/hooks/useRentModal";
 import Modal from "./Modal";
@@ -47,7 +47,7 @@ const RentModal = () => {
       guestCount: 1,
       roomCount: 1,
       bathroomCount: 1,
-      imageSrc: "",
+      imageSrc: [],
       price: 1,
       title: "",
       description: "",
@@ -91,7 +91,7 @@ const RentModal = () => {
   };
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    if (step != STEPS.PRICE) {
+    if (step !== STEPS.PRICE) {
       return onNext();
     }
 
@@ -114,7 +114,7 @@ const RentModal = () => {
   };
 
   const actionLabel = useMemo(() => {
-    if (step == STEPS.PRICE) {
+    if (step === STEPS.PRICE) {
       return "Create";
     }
 
@@ -122,38 +122,26 @@ const RentModal = () => {
   }, [step]);
 
   const secondaryActionLabel = useMemo(() => {
-    if (step == STEPS.CATEGORY) {
+    if (step === STEPS.CATEGORY) {
       return undefined;
     }
     return "Back";
   }, [step]);
 
   let bodyContent = (
-    <div
-      className="
-            flex
-            flex-col
-            gap-8"
-    >
+    <div className="flex flex-col gap-8">
       <Heading
         title="Which of the following best describes your place?"
         subtitle="Pick a category"
       />
       <div
-        className="
-                    grid
-                    grid-cols-1
-                    md:grid-cols-2
-                    gap-3
-                    max-h-[50vh]
-                    overflow-y-auto
-                    "
+        className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto"
       >
         {categories.map((item) => (
           <div key={item.label} className="col-span-1">
             <CategoryInput
               onClick={(category) => setCustomValue("category", category)}
-              selected={category == item.label}
+              selected={category === item.label}
               label={item.label}
               icon={item.icon}
             />
@@ -163,31 +151,23 @@ const RentModal = () => {
     </div>
   );
 
-  if (step == STEPS.LOCATION) {
+  if (step === STEPS.LOCATION) {
     bodyContent = (
-      <div
-        className="
-                    flex
-                    flex-col
-                    gap-8
-            "
-      >
+      <div className="flex flex-col gap-8">
         <Heading
           title="Where is your place located?"
           subtitle="Help students see where they'll stay!"
         />
-
         <CountrySelect
           locationValue={location}
           onChange={(value) => setCustomValue("location", value)}
         />
-
         <Map center={location?.latlng} />
       </div>
     );
   }
 
-  if (step == STEPS.INFO) {
+  if (step === STEPS.INFO) {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
@@ -219,7 +199,7 @@ const RentModal = () => {
     );
   }
 
-  if (step == STEPS.IMAGES) {
+  if (step === STEPS.IMAGES) {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
@@ -234,14 +214,13 @@ const RentModal = () => {
     );
   }
 
-  if (step == STEPS.DESCRIPTION) {
+  if (step === STEPS.DESCRIPTION) {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
           title="How would you describe your place?"
           subtitle="Short and sweet works best!"
         />
-
         <hr />
         <Input
           id="title"
@@ -291,7 +270,7 @@ const RentModal = () => {
     );
   }
 
-  if (step == STEPS.PRICE) {
+  if (step === STEPS.PRICE) {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
@@ -319,7 +298,7 @@ const RentModal = () => {
       onSubmit={handleSubmit(onSubmit)}
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}
-      secondaryAction={step == STEPS.CATEGORY ? undefined : onBack}
+      secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
       title="Post your space on EduRent"
       body={bodyContent}
     />
