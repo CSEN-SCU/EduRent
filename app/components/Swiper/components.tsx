@@ -45,7 +45,7 @@ interface CarouselSlotProps {
 export const CarouselSlot = styled.div<CarouselSlotProps>`
   flex: 1 0 100%;
   flex-basis: 100%;
-  margin-right: 20px;
+  margin-right: 2vh;
   order: ${(props) => props.order};
 `;
 
