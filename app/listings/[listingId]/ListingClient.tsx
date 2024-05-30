@@ -19,7 +19,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { Range } from "react-date-range";
 import { Account } from "@prisma/client";
-import Carousel from "@/app/components/Carousel/Carousel";
+import Carousel from "@/app/components/Swiper/Carousel";
 
 // lucas was here
 const initialDateRange = {
@@ -139,9 +139,6 @@ const ListingClient: React.FC<ListingClientProps> = ({
           distFromBenson={listing.distFromBenson}
           price={listing.price}
         />
-        <Carousel>
-          
-        </Carousel>
         <div className="flex justify-start">
         <ListingContact
             title = {listing.title}
