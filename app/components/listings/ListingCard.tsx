@@ -13,6 +13,9 @@ import RentModal from "../modals/RentModal";
 import EditModal from "../modals/EditModal";
 import useEditModal from "@/app/hooks/useEditModal";
 import useRentModal from "@/app/hooks/useRentModal";
+import useListingHoverEffect from "@/app/hooks/useListingHoverEffect";
+import Carousel from "../Swiper/Carousel";
+import { Item } from "../Swiper/components";
 
 interface ListingCardProps {
   data: SafeListing;
@@ -38,7 +41,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
   currentUser,
 }) => {
   const router = useRouter();
-  //const { getByValue } = useCountries();
+  const listHoverEffect = useListingHoverEffect();
 
   const location = data.locationValue;
   const editModal = useEditModal();
@@ -89,6 +92,12 @@ const ListingCard: React.FC<ListingCardProps> = ({
   return (
     <div
       onClick={() => router.push(`/listings/${data.id}`)}
+      onMouseOver={() => {
+        listHoverEffect.setCurrListing(data.id);
+      }}
+      onMouseOut={() => {
+        listHoverEffect.setCurrListing(null);
+      }}
       className="col-span-1 cursor-pointer group"
       style={{ width: "100%" }}
     >
@@ -100,20 +109,26 @@ const ListingCard: React.FC<ListingCardProps> = ({
                         relative
                         overflow-hidden
                         rounded-xl
-                    "
-        >
-          <Image
-            fill
-            alt="Listing"
-            src={data.imageSrc}
-            className="
+                    ">
+                    <Image 
+                        fill
+                        alt = "Listing"
+                        src = {data.imageSrc[0]}
+                        className="
                             object-cover
                             h-full
                             w-full
                             group-hover:scale-110
                             transition
                         "
-          />
+                    />
+                            {/* <Carousel>
+                              {data.imageSrc.map((image) => {
+                                return (
+                                  <Item img={image}/>
+                                )
+                              })}
+                            </Carousel> */}
           <div className="absolute top-3 right-3">
             <HeartButton listingId={data.id} currentUser={currentUser} />
           </div>
@@ -128,24 +143,18 @@ const ListingCard: React.FC<ListingCardProps> = ({
           <div className="font-semibold">${price}</div>
           {!reservation && <div className="font-light"> per month</div>}
         </div>
-        {onEdit && editLabel &&(
-            <Button
-                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                    e.stopPropagation();
-                    editModal.onOpen(data);
-                }}
-                small label={editLabel}
-            />
-        )}
-
+        {onEdit &&
+          editLabel && ( // Render the edit button
+            <Button small label={editLabel} onClick={handleEdit} />
+          )}
         {onAction && actionLabel && (
           <Button
             disabled={disabled}
-            small label={actionLabel}
+            small
+            label={actionLabel}
             onClick={handleCancel}
           />
         )}
-
       </div>
     </div>
   );

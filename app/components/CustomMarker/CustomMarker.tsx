@@ -1,9 +1,11 @@
-'use client';
+"use client";
 import { useCallback, useMemo } from "react";
 import OverlayView from "../OverlayView";
 import { motion } from "framer-motion";
 import { SafeListing, SafeUser } from "@/app/types";
 import ListingCard from "../listings/ListingCard";
+import CloseButton from "../CloseButton";
+import useListingHoverEffect from "@/app/hooks/useListingHoverEffect";
 
 interface CustomMarkerProps {
   data: SafeListing;
@@ -24,6 +26,9 @@ const CustomMarker: React.FC<CustomMarkerProps> = ({
   const lat = latLong[0];
   const long = latLong[1];
   const price = data.price;
+  const listingHoverEffect = useListingHoverEffect();
+
+  const isCurrentHover = listingHoverEffect.currListing === data.id;
 
   const handleClick = useCallback(() => {
     if (selectedListing && selectedListing.id === data.id) {
@@ -61,7 +66,11 @@ const CustomMarker: React.FC<CustomMarkerProps> = ({
             }}
           >
             <button
-              className={`rounded-full bg-rose-900 py-1.5 px-2 drop-shadow text-xs text-white`}
+              className={
+                isCurrentHover
+                  ? `rounded-full bg-green-900 py-1 px-1.5 text-white scale-125 font-bold`
+                  : `rounded-full bg-[#862633] py-1 px-1.5 drop-shadow text-xs text-white hover:bg-white hover:text-[#862633] hover:scale-125 hover:border hover:font-bold hover:border-[#862633]`
+              }
               onClick={handleClick}
             >
               {markerContent}
@@ -79,20 +88,20 @@ const CustomMarker: React.FC<CustomMarkerProps> = ({
           zIndex={1}
         >
           <div className="relative">
-            <div className="absolute w-max h-min bottom-0 transform -translate-x-1/3 left-1/3 right-0 z-50 bg-white shadow-lg rounded-lg p-4 ">
-                <ListingCard data={selectedListing} currentUser={currentUser} />
-                {/* <button
-                  className="absolute top-2 left-2 bg-gray-200 p-2 rounded-full shadow"
+            <div className="absolute w-max h-min bottom-0 transform -translate-x-1/3 left-1/3 right-0 z-50 bg-white shadow-lg rounded-lg p-4">
+              <ListingCard data={selectedListing} currentUser={currentUser} />
+              <div className="absolute top-0.5 left-0.5 cursor-pointer hover:scale-125">
+                <CloseButton
+                  size={20}
                   onClick={() => setSelectedListing(null)}
-                >
-                Close
-                </button> */}
+                />
+              </div>
             </div>
           </div>
         </OverlayView>
       )}
     </>
   );
-}
+};
 
 export default CustomMarker;

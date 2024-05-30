@@ -5,11 +5,15 @@ import Heading from "../Heading";
 import Image from "next/image";
 import { SafeUser } from "@/app/types";
 import HeartButton from "../inputs/HeartButton";
+import Carousel from "../Swiper/Carousel";
+import { Item, AppContainer, Code } from "../Swiper/components";
+import ReactDOM from "react-dom";
+import React from "react";
 
 interface IListingHeadProps {
   title: string;
   locationValue: string;
-  imageSrc: string;
+  imageSrc: string[];
   id: string;
   currentUser?: SafeUser | null;
 }
@@ -34,19 +38,27 @@ const ListingHead: React.FC<IListingHeadProps> = ({
       <div
         className="
           w-full
-          h-[60vh]
+          h-full
           overflow-hidden
           rounded-xl
           relative
         "
       >
-        <Image
+        {/* <Image
           alt="Image"
           src={imageSrc}
           fill
           sizes="100%"
           className="object-cover w-full"
-        />
+        /> */}
+        <Carousel>
+          {imageSrc.map((image) => {
+            return (
+              <Item img={image}/>
+            )
+          })}
+        </Carousel>
+
         <div className="absolute top-5 right-5">
           <HeartButton listingId={id} currentUser={currentUser} />
         </div>

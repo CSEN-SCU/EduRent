@@ -51,8 +51,8 @@ const DatePick: React.FC<DatePickerProps> = ({
                className={`
                    w-full p-4 pt-6 font-light bg-white border-2 rounded-md outline-none transition
                    pl-4
-                   ${errors[id] ? 'border-[#b30738]' : 'border-neutral-300'}
-                   ${errors[id] ? 'focus:border-[#b30738]' : 'focus:border-black'}
+                   ${errors[id] ? 'border-[#862633]' : 'border-neutral-300'}
+                   ${errors[id] ? 'focus:border-[#862633]' : 'focus:border-black'}
                `}
                required={required}
            />
@@ -61,7 +61,7 @@ const DatePick: React.FC<DatePickerProps> = ({
                className={`
                    absolute text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0]
                    left-4
-                   ${errors[id] ? 'text-rose-500' : 'text-zinc-400'}
+                   ${errors[id] ? 'text-[#862633]' : 'text-zinc-400'}
                `}
            >
                {label}

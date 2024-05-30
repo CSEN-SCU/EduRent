@@ -15,9 +15,12 @@
     "@next/third-parties": "^14.2.3",
     "@prisma/client": "^5.13.0",
     "@tanstack/react-query": "^4.0.10",
+    "@types/react-swipeable": "^5.2.0",
+    "@types/styled-components": "^5.1.34",
     "@uidotdev/usehooks": "^2.4.1",
     "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
+    "cloudinary": "^2.2.0",
     "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
     "fast-equals": "^4.0.1",
@@ -38,6 +41,8 @@
     "react-icons": "^5.0.1",
     "react-leaflet": "^4.2.1",
     "react-select": "^5.8.0",
+    "react-swipeable": "^7.0.1",
+    "styled-components": "^6.1.11",
     "use-google-maps-script": "^0.1.2",
     "use-places-autocomplete": "^4.0.1",
     "world-countries": "^5.0.0",
@@ -48,7 +53,7 @@
     "@types/google.maps": "^3.49.2",
     "@types/leaflet": "^1.9.11",
     "@types/node": "^20",
-    "@types/react": "^18",
+    "@types/react": "^18.3.3",
     "@types/react-date-range": "^1.4.9",
     "@types/react-datepicker": "^6.2.0",
     "@types/react-dom": "^18",
@@ -58,6 +63,6 @@
     "postcss": "^8",
     "prisma": "^5.13.0",
     "tailwindcss": "^3.3.0",
-    "typescript": "^5"
+    "typescript": "^5.4.5"
   }
 }

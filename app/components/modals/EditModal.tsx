@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import useEditModal from "@/app/hooks/useEditModal";
 import Modal from "./Modal";
@@ -47,7 +47,7 @@ const EditModal = () => {
       guestCount: 1,
       roomCount: 1,
       bathroomCount: 1,
-      imageSrc: "",
+      images: [],
       price: 1,
       title: "",
       description: "",
@@ -67,7 +67,7 @@ const EditModal = () => {
   const guestCount = watch("guestCount");
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
-  const imageSrc = watch("imageSrc");
+  const images = watch("images");
   const leaseStartDate = watch("leaseStartDate");
   const leaseEndDate = watch("leaseEndDate");
 
@@ -96,7 +96,7 @@ const EditModal = () => {
   };
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    if (step != STEPS.PRICE) {
+    if (step !== STEPS.PRICE) {
       return onNext();
     }
 
@@ -127,38 +127,26 @@ const EditModal = () => {
   }, [step]);
 
   const secondaryActionLabel = useMemo(() => {
-    if (step == STEPS.CATEGORY) {
+    if (step === STEPS.CATEGORY) {
       return undefined;
     }
     return "Back";
   }, [step]);
 
   let bodyContent = (
-    <div
-      className="
-            flex
-            flex-col
-            gap-8"
-    >
+    <div className="flex flex-col gap-8">
       <Heading
         title="does this not describe your place?"
         subtitle="Pick a category"
       />
       <div
-        className="
-                    grid
-                    grid-cols-1
-                    md:grid-cols-2
-                    gap-3
-                    max-h-[50vh]
-                    overflow-y-auto
-                    "
+        className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto"
       >
         {categories.map((item) => (
           <div key={item.label} className="col-span-1">
             <CategoryInput
               onClick={(category) => setCustomValue("category", category)}
-              selected={category == item.label}
+              selected={category === item.label}
               label={item.label}
               icon={item.icon}
             />
@@ -168,31 +156,23 @@ const EditModal = () => {
     </div>
   );
 
-  if (step == STEPS.LOCATION) {
+  if (step === STEPS.LOCATION) {
     bodyContent = (
-      <div
-        className="
-                    flex
-                    flex-col
-                    gap-8
-            "
-      >
+      <div className="flex flex-col gap-8">
         <Heading
           title="Where is your place located?"
-          subtitle="Help guests find you!"
+          subtitle="Help students see where they'll stay!"
         />
-
         <CountrySelect
           locationValue={location}
           onChange={(value) => setCustomValue("location", value)}
         />
-
         <Map center={location?.latlng} />
       </div>
     );
   }
 
-  if (step == STEPS.INFO) {
+  if (step === STEPS.INFO) {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
@@ -224,7 +204,7 @@ const EditModal = () => {
     );
   }
 
-  if (step == STEPS.IMAGES) {
+  if (step === STEPS.IMAGES) {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
@@ -232,21 +212,20 @@ const EditModal = () => {
           subtitle="You can always add more later"
         />
         <ImageUpload
-          value={imageSrc}
-          onChange={(value) => setCustomValue("imageSrc", value)}
+          value={images}
+          onChange={(value) => setCustomValue("images", value)}
         />
       </div>
     );
   }
 
-  if (step == STEPS.DESCRIPTION) {
+  if (step === STEPS.DESCRIPTION) {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
           title="How would you describe your place?"
           subtitle="Short and sweet works best!"
         />
-
         <hr />
         <Input
           id="title"
@@ -296,7 +275,7 @@ const EditModal = () => {
     );
   }
 
-  if (step == STEPS.PRICE) {
+  if (step === STEPS.PRICE) {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
