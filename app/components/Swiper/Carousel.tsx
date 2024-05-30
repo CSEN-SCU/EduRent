@@ -64,15 +64,15 @@ const Carousel: React.FC<CarouselProps> = (props) => {
       </Wrapper>
       <div 
         onClick={() => slide(PREV)} 
-        className="absolute bottom-14 left-5 cursor-pointer text-5xl text-white"
+        className="absolute bottom-14 left-5 cursor-pointer text-5xl text-[#862633] z-12"
       >
-        <IoIosArrowBack className="bg-black"/>
+        <IoIosArrowBack className="bg-white rounded-full"/>
       </div>
       <div 
         onClick={() => slide(NEXT)} 
-        className="absolute bottom-14 right-5 cursor-pointer text-5xl text-white"
+        className="absolute bottom-14 right-5 cursor-pointer text-5xl text-[#862633] z-12"
       >
-        <IoIosArrowForward className="bg-black"/>
+        <IoIosArrowForward className="bg-white rounded-full"/>
       </div>
     </div>
   );

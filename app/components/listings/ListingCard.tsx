@@ -10,6 +10,8 @@ import Image from "next/image";
 import HeartButton from "../inputs/HeartButton";
 import Button from "../Button";
 import useListingHoverEffect from "@/app/hooks/useListingHoverEffect";
+import Carousel from "../Swiper/Carousel";
+import { Item } from "../Swiper/components";
 
 interface ListingCardProps {
   data: SafeListing;
@@ -114,7 +116,14 @@ const ListingCard: React.FC<ListingCardProps> = ({
                             group-hover:scale-110
                             transition
                         "
-          />
+                    />
+                            {/* <Carousel>
+                              {data.imageSrc.map((image) => {
+                                return (
+                                  <Item img={image}/>
+                                )
+                              })}
+                            </Carousel> */}
           <div className="absolute top-3 right-3">
             <HeartButton listingId={data.id} currentUser={currentUser} />
           </div>

@@ -13,7 +13,7 @@ import React from "react";
 interface IListingHeadProps {
   title: string;
   locationValue: string;
-  imageSrc: string;
+  imageSrc: string[];
   id: string;
   currentUser?: SafeUser | null;
 }
@@ -52,8 +52,11 @@ const ListingHead: React.FC<IListingHeadProps> = ({
           className="object-cover w-full"
         /> */}
         <Carousel>
-          <Item img={imageSrc[0]}/>
-          <Item img={imageSrc[1]} />
+          {imageSrc.map((image) => {
+            return (
+              <Item img={image}/>
+            )
+          })}
         </Carousel>
 
         <div className="absolute top-5 right-5">
