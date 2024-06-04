@@ -64,7 +64,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
       e.stopPropagation();
 
     //   onAction?.(actionId);
-      editModal.onOpen();
+      editModal.onOpen(data);
       console.log("Pressed");
     },
     [onAction, actionId, disabled]

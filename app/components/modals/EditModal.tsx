@@ -100,7 +100,7 @@ const EditModal = () => {
 
     setIsLoading(true);
     axios
-      .post("/api/listings", data)
+      .put("/api/listings/update", data)
       .then(() => {
         toast.success("Listing Updated");
         router.refresh();
