@@ -4,7 +4,15 @@ import { CldUploadWidget } from "next-cloudinary";
 import { useCallback } from "react";
 import { TbPhotoPlus } from "react-icons/tb";
 import Image from "next/image";
-
+import Carousel from "../Swiper/Carousel";
+import {
+  Wrapper,
+  CarouselContainer,
+  CarouselSlot,
+  PREV,
+  NEXT,
+  Item
+} from "../Swiper/components";
 declare global {
   var cloudinary: any;
 }
@@ -53,39 +61,42 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => {
     >
       {({ open }) => {
         return (
-          <div
-            onClick={() => open?.()}
-            className="
-              relative
-              cursor-pointer
-              hover:opacity-70
-              transition
-              border-dashed
-              border-2
-              p-20
-              border-neutral-300
-              flex
-              flex-col
-              justify-center
-              items-center
-              gap-4
-              text-neutral-600
-            "
-          >
-            <TbPhotoPlus size={50} />
-            <div className="font-semibold text-lg">Click to upload photos</div>
+          <div className="relative flex flex-col h-full w-full">
+            <div className="flex-grow">
+              <div
+                onClick={() => open?.()}
+                className="
+                cursor-pointer
+                  hover:opacity-70
+                  transition
+                  border-dashed
+                  border-2
+                  p-4
+                  border-neutral-300
+                  flex
+                  flex-col
+                  justify-center
+                  items-center
+                  gap-2
+                  text-neutral-600
+                  bg-white
+                  rounded-lg
+                  h-full
+                "
+              >
+                <TbPhotoPlus size={50} />
+                <div className="font-semibold text-lg text-center">Click to upload photos</div>
+              </div>
+            </div>
             {value.length > 0 && (
-              <div className="absolute inset-0 w-full h-full grid grid-cols-2 gap-2">
-                {value.map((imageUrl, index) => (
-                  <div key={index} className="relative w-full h-48">
-                    <Image
-                      alt={`Uploaded image ${index + 1}`}
-                      fill
-                      style={{ objectFit: "cover" }}
-                      src={imageUrl}
-                    />
-                  </div>
-                ))}
+              <div className="flex-grow">
+                <div className="w-full h-full">
+                  <Carousel>
+                    {value.map((imageUrl, index) => (
+                      <Item key={index} img={imageUrl} />
+                    ))}
+                  </Carousel>
+                </div>
               </div>
             )}
           </div>
