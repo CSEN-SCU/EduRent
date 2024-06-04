@@ -19,9 +19,10 @@ import { useRouter } from "next/navigation";
 
 enum STEPS {
   INFO = 0,
-  IMAGES = 1,
-  DESCRIPTION = 2,
-  PRICE = 3,
+  LOCATION = 1,
+  IMAGES = 2,
+  DESCRIPTION = 3,
+  PRICE = 4,
 }
 
 const EditModal = () => {
@@ -40,8 +41,11 @@ const EditModal = () => {
     reset,
   } = useForm<FieldValues>({
     defaultValues: {
+      id: "",
       category: "",
-      location: null,
+      locationValue: null,
+      listingLatLong: null,
+      distFromBenson: null,
       guestCount: 1,
       roomCount: 1,
       bathroomCount: 1,
@@ -62,13 +66,17 @@ const EditModal = () => {
 
   const category = watch("category");
   const location = watch("location");
+  const locationValue = watch("locationValue");
+  const listingLatLong = watch("listingLatLong");
+  const distFromBenson = watch("distValue");
   const guestCount = watch("guestCount");
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
   const imageSrc = watch("imageSrc");
   const leaseStartDate = watch("leaseStartDate");
   const leaseEndDate = watch("leaseEndDate");
-
+  console.log("Location value:", locationValue);
+  console.log("listingLatLong: ", listingLatLong);
   const Map = useMemo(
     () =>
       dynamic(() => import("../Map"), {
@@ -93,14 +101,44 @@ const EditModal = () => {
     setStep((value) => value + 1);
   };
 
+  // const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  //   if (step !== STEPS.PRICE) {
+  //     return onNext();
+  //   }
+
+  //   setIsLoading(true);
+  //   axios
+  //     .put("/api/listings/update", data)
+  //     .then(() => {
+  //       toast.success("Listing Updated");
+  //       router.refresh();
+  //       reset();
+  //       setStep(STEPS.INFO);
+  //       editModal.onClose();
+  //     })
+  //     .catch(() => {
+  //       toast.error("Something went wrong.");
+  //     })
+  //     .finally(() => {
+  //       setIsLoading(false);
+  //     });
+  // };
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const listingId = data.id; // Assuming the listing ID is part of the form data
+    
+    if (!listingId) {
+      toast.error("Listing ID is required.");
+      return;
+    }
+  
     if (step !== STEPS.PRICE) {
       return onNext();
     }
-
+  
     setIsLoading(true);
+  
     axios
-      .put("/api/listings/update", data)
+      .put(`/api/listings/update/${listingId}`, data)
       .then(() => {
         toast.success("Listing Updated");
         router.refresh();
@@ -160,6 +198,22 @@ const EditModal = () => {
       <hr />
     </div>
   );
+
+  if (step === STEPS.LOCATION) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Where is your place located?"
+          subtitle="Help students see where they'll stay!"
+        />
+        <CountrySelect
+          locationValue={locationValue}
+          onChange={(value) => setCustomValue("location", value)}
+        />
+        <Map center={location?.latlng} />
+      </div>
+    );
+  }
 
   if (step === STEPS.IMAGES) {
     bodyContent = (
