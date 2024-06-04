@@ -68,7 +68,7 @@ const CustomMarker: React.FC<CustomMarkerProps> = ({
             <button
               className={
                 isCurrentHover
-                  ? `rounded-full bg-green-900 py-1 px-1.5 text-white scale-125 font-bold`
+                  ? `rounded-full bg-white py-1 px-1.5 text-[#862633] scale-125 border font-bold border-[#862633]`
                   : `rounded-full bg-[#862633] py-1 px-1.5 drop-shadow text-xs text-white hover:bg-white hover:text-[#862633] hover:scale-125 hover:border hover:font-bold hover:border-[#862633]`
               }
               onClick={handleClick}
