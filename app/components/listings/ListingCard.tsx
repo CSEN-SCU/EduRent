@@ -59,16 +59,16 @@ const ListingCard: React.FC<ListingCardProps> = ({
     [onAction, actionId, disabled]
   );
 
-//   const handleEdit = useCallback(
-//     (e: React.MouseEvent<HTMLButtonElement>) => {
-//       e.stopPropagation();
+  const handleEdit = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
 
-//     //   onAction?.(actionId);
-//       editModal.onOpen();
-//       console.log("Pressed");
-//     },
-//     [onAction, actionId, disabled]
-//   );
+    //   onAction?.(actionId);
+      editModal.onOpen();
+      console.log("Pressed");
+    },
+    [onAction, actionId, disabled]
+  );
 
   const price = useMemo(() => {
     if (reservation) {

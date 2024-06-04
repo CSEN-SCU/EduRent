@@ -18,19 +18,17 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 enum STEPS {
-  CATEGORY = 0,
-  LOCATION = 1,
-  INFO = 2,
-  IMAGES = 3,
-  DESCRIPTION = 4,
-  PRICE = 5,
+  INFO = 0,
+  IMAGES = 1,
+  DESCRIPTION = 2,
+  PRICE = 3,
 }
 
 const EditModal = () => {
   const router = useRouter();
   const editModal = useEditModal();
 
-  const [step, setStep] = useState(STEPS.CATEGORY);
+  const [step, setStep] = useState(STEPS.INFO);
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -47,7 +45,7 @@ const EditModal = () => {
       guestCount: 1,
       roomCount: 1,
       bathroomCount: 1,
-      images: [],
+      imageSrc: [],
       price: 1,
       title: "",
       description: "",
@@ -67,7 +65,7 @@ const EditModal = () => {
   const guestCount = watch("guestCount");
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
-  const images = watch("images");
+  const imageSrc = watch("imageSrc");
   const leaseStartDate = watch("leaseStartDate");
   const leaseEndDate = watch("leaseEndDate");
 
@@ -107,7 +105,7 @@ const EditModal = () => {
         toast.success("Listing Updated");
         router.refresh();
         reset();
-        setStep(STEPS.CATEGORY);
+        setStep(STEPS.INFO);
         editModal.onClose();
       })
       .catch(() => {
@@ -127,7 +125,7 @@ const EditModal = () => {
   }, [step]);
 
   const secondaryActionLabel = useMemo(() => {
-    if (step === STEPS.CATEGORY) {
+    if (step === STEPS.INFO) {
       return undefined;
     }
     return "Back";
@@ -136,73 +134,32 @@ const EditModal = () => {
   let bodyContent = (
     <div className="flex flex-col gap-8">
       <Heading
-        title="does this not describe your place?"
-        subtitle="Pick a category"
+        title="Share some basics about your place"
+        subtitle="What amenities do you have?"
       />
-      <div
-        className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto"
-      >
-        {categories.map((item) => (
-          <div key={item.label} className="col-span-1">
-            <CategoryInput
-              onClick={(category) => setCustomValue("category", category)}
-              selected={category === item.label}
-              label={item.label}
-              icon={item.icon}
-            />
-          </div>
-        ))}
-      </div>
+      <Counter
+        title="Tenants"
+        subtitle="How many tenants are you looking for (max)?"
+        value={guestCount}
+        onChange={(value) => setCustomValue("guestCount", value)}
+      />
+      <hr />
+      <Counter
+        title="Rooms"
+        subtitle="How many rooms do you have?"
+        value={roomCount}
+        onChange={(value) => setCustomValue("roomCount", value)}
+      />
+      <hr />
+      <Counter
+        title="Bathrooms"
+        subtitle="How many bathrooms do you have?"
+        value={bathroomCount}
+        onChange={(value) => setCustomValue("bathroomCount", value)}
+      />
+      <hr />
     </div>
   );
-
-  if (step === STEPS.LOCATION) {
-    bodyContent = (
-      <div className="flex flex-col gap-8">
-        <Heading
-          title="Where is your place located?"
-          subtitle="Help students see where they'll stay!"
-        />
-        <CountrySelect
-          locationValue={location}
-          onChange={(value) => setCustomValue("location", value)}
-        />
-        <Map center={location?.latlng} />
-      </div>
-    );
-  }
-
-  if (step === STEPS.INFO) {
-    bodyContent = (
-      <div className="flex flex-col gap-8">
-        <Heading
-          title="Share some basics about your place"
-          subtitle="What amenities do you have?"
-        />
-        <Counter
-          title="Tenants"
-          subtitle="How many tenants are you looking for (max)?"
-          value={guestCount}
-          onChange={(value) => setCustomValue("guestCount", value)}
-        />
-        <hr />
-        <Counter
-          title="Rooms"
-          subtitle="How many rooms do you have?"
-          value={roomCount}
-          onChange={(value) => setCustomValue("roomCount", value)}
-        />
-        <hr />
-        <Counter
-          title="Bathrooms"
-          subtitle="How many bathrooms do you have?"
-          value={bathroomCount}
-          onChange={(value) => setCustomValue("bathroomCount", value)}
-        />
-        <hr />
-      </div>
-    );
-  }
 
   if (step === STEPS.IMAGES) {
     bodyContent = (
@@ -212,8 +169,8 @@ const EditModal = () => {
           subtitle="You can always add more later"
         />
         <ImageUpload
-          value={images}
-          onChange={(value) => setCustomValue("images", value)}
+          value={imageSrc}
+          onChange={(value) => setCustomValue("imageSrc", value)}
         />
       </div>
     );
@@ -303,7 +260,7 @@ const EditModal = () => {
       onSubmit={handleSubmit(onSubmit)}
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}
-      secondaryAction={step == STEPS.CATEGORY ? undefined : onBack}
+      secondaryAction={step == STEPS.INFO ? undefined : onBack}
       title="Edit your edurent listing"
       body={bodyContent}
     />
