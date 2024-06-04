@@ -28,7 +28,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => {
       onSuccess={handleUpload}
       uploadPreset="okg5red2"
       options={{
-        maxFiles: 69,
+        maxFiles: 30,
         styles: {
           palette: {
             window: "#F5F5F5",
