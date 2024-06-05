@@ -46,7 +46,7 @@ const Input: React.FC<InputProps> = ({
                 transform
                 -translate-y-3
                 top-5
-                z-10
+                z-0
                 origin-[0]
                 ${formatPrice ? 'left-9' : 'left-4'}
                 peer-placeholder-shown:scale-100
