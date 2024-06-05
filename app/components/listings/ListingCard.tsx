@@ -9,6 +9,10 @@ import { format } from "date-fns";
 import Image from "next/image";
 import HeartButton from "../inputs/HeartButton";
 import Button from "../Button";
+import RentModal from "../modals/RentModal";
+import EditModal from "../modals/EditModal";
+import useEditModal from "@/app/hooks/useEditModal";
+import useRentModal from "@/app/hooks/useRentModal";
 import useListingHoverEffect from "@/app/hooks/useListingHoverEffect";
 import Carousel from "../Swiper/Carousel";
 import { Item } from "../Swiper/components";
@@ -17,7 +21,7 @@ interface ListingCardProps {
   data: SafeListing;
   reservation?: Reservation;
   onAction?: (id: string) => void;
-  onEdit?: (id: string) => void;
+  onEdit?: boolean;
   disabled?: boolean;
   actionLabel?: string;
   editLabel?: string;
@@ -40,6 +44,8 @@ const ListingCard: React.FC<ListingCardProps> = ({
   const listHoverEffect = useListingHoverEffect();
 
   const location = data.locationValue;
+  const editModal = useEditModal();
+  const rentModal = useRentModal();
 
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -57,12 +63,11 @@ const ListingCard: React.FC<ListingCardProps> = ({
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
 
-      if (disabled) {
-        return;
-      }
-      onEdit?.(actionId);
+    //   onAction?.(actionId);
+      editModal.onOpen(data);
+      console.log("Pressed");
     },
-    [onEdit, actionId, disabled]
+    [onAction, actionId, disabled]
   );
 
   const price = useMemo(() => {
