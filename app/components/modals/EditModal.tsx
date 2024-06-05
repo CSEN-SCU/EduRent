@@ -7,7 +7,7 @@ import Heading from "../Heading";
 import { categories } from "../navbar/Categories";
 import CategoryInput from "../inputs/CategoryInput";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import CountrySelect from "../inputs/CountrySelect";
+import CountrySelect, { CountrySelectValue } from "../inputs/CountrySelect";
 import dynamic from "next/dynamic";
 import Counter from "../inputs/Counter";
 import ImageUpload from "../inputs/ImageUpload";
@@ -16,14 +16,17 @@ import DatePick from "../inputs/DatePick";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { type } from "os";
+import { latLng } from "leaflet";
 
 enum STEPS {
   INFO = 0,
-  LOCATION = 1,
-  IMAGES = 2,
-  DESCRIPTION = 3,
-  PRICE = 4,
+  //LOCATION = 1,
+  IMAGES = 1,
+  DESCRIPTION = 2,
+  PRICE = 3,
 }
+
 
 const EditModal = () => {
   const router = useRouter();
@@ -43,9 +46,7 @@ const EditModal = () => {
     defaultValues: {
       id: "",
       category: "",
-      locationValue: null,
-      listingLatLong: null,
-      distFromBenson: null,
+      location: null,
       guestCount: 1,
       roomCount: 1,
       bathroomCount: 1,
@@ -60,13 +61,13 @@ const EditModal = () => {
 
   useEffect(() => {
     if (editModal.data) {
+      console.log(editModal.data);
       reset(editModal.data);
     }
   }, [editModal.data, reset]);
 
   const category = watch("category");
   const location = watch("location");
-  const locationValue = watch("locationValue");
   const listingLatLong = watch("listingLatLong");
   const distFromBenson = watch("distValue");
   const guestCount = watch("guestCount");
@@ -75,15 +76,15 @@ const EditModal = () => {
   const imageSrc = watch("imageSrc");
   const leaseStartDate = watch("leaseStartDate");
   const leaseEndDate = watch("leaseEndDate");
-  console.log("Location value:", locationValue);
-  console.log("listingLatLong: ", listingLatLong);
-  const Map = useMemo(
-    () =>
-      dynamic(() => import("../Map"), {
-        ssr: false,
-      }),
-    [location]
-  );
+  //console.log("Location value:", locationValue);
+  //console.log("listingLatLong: ", listingLatLong);
+  // const Map = useMemo(
+  //   () =>
+  //     dynamic(() => import("../Map"), {
+  //       ssr: false,
+  //     }),
+  //   [location]
+  // );
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
@@ -199,21 +200,33 @@ const EditModal = () => {
     </div>
   );
 
-  if (step === STEPS.LOCATION) {
-    bodyContent = (
-      <div className="flex flex-col gap-8">
-        <Heading
-          title="Where is your place located?"
-          subtitle="Help students see where they'll stay!"
-        />
-        <CountrySelect
-          locationValue={locationValue}
-          onChange={(value) => setCustomValue("location", value)}
-        />
-        <Map center={location?.latlng} />
-      </div>
-    );
-  }
+  // if (step === STEPS.LOCATION) {
+  //   console.log(editModal.data.locationValue); 
+  //   console.log(typeof(editModal.data.locationValue)); 
+
+  //   const location: CountrySelectValue = {
+  //     flag: "📍",  
+  //     label: editModal.data.locationValue as string, 
+  //     region: editModal.data.locationValue as string,
+  //     latlng: editModal.data.listingLatLong as number[],
+  //     locationValue: editModal.data.locationValue,
+  //     distValue: editModal.data.distFromBenson as number,
+  //   }
+  //   bodyContent = (
+  //     <div className="flex flex-col gap-8">
+  //       <Heading
+  //         title="Where is your place located?"
+  //         subtitle="Help students see where they'll stay!"
+  //       />
+  //       <CountrySelect
+  //         locationValue={location}
+  //         //initialAddress={editModal.data.locationValue}
+  //         onChange={(value) => setCustomValue("location", value)}
+  //       />
+  //       <Map center={editModal.data.listingLatLong} />
+  //     </div>
+  //   );
+  // }
 
   if (step === STEPS.IMAGES) {
     bodyContent = (

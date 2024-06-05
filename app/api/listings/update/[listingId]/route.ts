@@ -40,7 +40,7 @@ export async function PUT(
       distFromBenson
     } = body;
 
-    if (!location || !locationValue || !listingLatLong || !distFromBenson) {
+    if (!locationValue || !listingLatLong || !distFromBenson) {
       return NextResponse.json({ error: "Invalid location data" }, { status: 400 });
     }
 
