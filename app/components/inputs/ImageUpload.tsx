@@ -18,7 +18,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => {
   const handleUpload = useCallback((result: any) => {
     const newImageUrl = result.info.secure_url;
     value.push(newImageUrl);
-    const updatedImages = [...value, newImageUrl];
+    const updatedImages = [...value];
     onChange(updatedImages);
     console.table(value);
   }, [onChange, value]);
@@ -28,7 +28,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => {
       onSuccess={handleUpload}
       uploadPreset="okg5red2"
       options={{
-        maxFiles: 69,
+        maxFiles: 30,
         styles: {
           palette: {
             window: "#F5F5F5",

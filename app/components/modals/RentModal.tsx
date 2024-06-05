@@ -203,7 +203,7 @@ const RentModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="Upload some photos of your place"
+          title="Upload some photos of your place (max 30)"
           subtitle="You can always add more later"
         />
         <ImageUpload
