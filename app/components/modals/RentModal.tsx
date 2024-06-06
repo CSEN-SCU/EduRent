@@ -2,7 +2,7 @@
 
 import useRentModal from "@/app/hooks/useRentModal";
 import Modal from "./Modal";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Heading from "../Heading";
 import { categories } from "../navbar/Categories";
 import CategoryInput from "../inputs/CategoryInput";
@@ -32,6 +32,7 @@ const RentModal = () => {
 
   const [step, setStep] = useState(STEPS.CATEGORY);
   const [isLoading, setIsLoading] = useState(false);
+  const [canAdvance, setCanAdvance] = useState(true); 
 
   const {
     register,
@@ -91,10 +92,14 @@ const RentModal = () => {
   };
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    if (!canAdvance) {
+      return; 
+    }
+
     if (step !== STEPS.PRICE) {
       return onNext();
     }
-
+   
     setIsLoading(true);
     axios
       .post("/api/listings", data)
@@ -127,6 +132,17 @@ const RentModal = () => {
     }
     return "Back";
   }, [step]);
+
+  useEffect(() => {
+    if (leaseStartDate && leaseEndDate) {
+      if ((leaseEndDate - leaseStartDate) <= 0) {
+        toast.error("Lease End Date must end after the Lease Start Date"); 
+        setCanAdvance(false); 
+      } else {
+        setCanAdvance(true); 
+      }
+    }
+  }, [leaseStartDate, leaseEndDate])
 
   let bodyContent = (
     <div className="flex flex-col gap-8">
