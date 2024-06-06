@@ -60,7 +60,7 @@ const RentModal = () => {
   });
 
   const category = watch("category");
-  const location = watch("location");
+  const locationValue = watch("location");
   const guestCount = watch("guestCount");
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
@@ -74,7 +74,7 @@ const RentModal = () => {
       dynamic(() => import("../Map"), {
         ssr: false,
       }),
-    [location]
+    [locationValue]
   );
 
   const setCustomValue = (id: string, value: any) => {
@@ -171,16 +171,14 @@ const RentModal = () => {
 
   //to not allow a null location 
   useEffect(() => {
-    console.log(`location ${location}`); 
-    console.log(`step ${step}`)
-    if (!location && step === STEPS.LOCATION) {
+    if ((!locationValue || locationValue?.label === "") && step === STEPS.LOCATION) {
       setDisabled(true); 
     }
     else {
       setDisabled(false); 
     }
 
-  }, [step, location])
+  }, [step, locationValue])
 
   if (step === STEPS.LOCATION) {
     bodyContent = (
@@ -190,10 +188,10 @@ const RentModal = () => {
           subtitle="Help students see where they'll stay!"
         />
         <CountrySelect
-          locationValue={location}
+          locationValue={locationValue}
           onChange={(value) => setCustomValue("location", value)}
         />
-        <Map center={location?.latlng} />
+        <Map center={locationValue?.latlng} />
       </div>
     );
   }
