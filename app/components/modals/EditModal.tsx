@@ -248,8 +248,8 @@ const EditModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="Upload some photos of your place"
-          subtitle="You can always add more later"
+          title="Upload photos"
+          subtitle="Add more pictures!"
         />
         <ImageUpload
           value={imageSrc}
