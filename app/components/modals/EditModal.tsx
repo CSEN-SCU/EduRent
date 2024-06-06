@@ -34,6 +34,7 @@ const EditModal = () => {
 
   const [step, setStep] = useState(STEPS.INFO);
   const [isLoading, setIsLoading] = useState(false);
+  const [canAdvance, setCanAdvance] = useState(false); 
 
   const {
     register,
@@ -127,6 +128,10 @@ const EditModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const listingId = data.id; // Assuming the listing ID is part of the form data
     
+    if (!canAdvance) {
+      return; 
+    }
+    
     if (!listingId) {
       toast.error("Listing ID is required.");
       return;
@@ -169,6 +174,17 @@ const EditModal = () => {
     }
     return "Back";
   }, [step]);
+
+  useEffect(() => {
+    if (leaseStartDate && leaseEndDate) {
+      if ((leaseEndDate - leaseStartDate) <= 0) {
+        toast.error("Lease End Date must end after the Lease Start Date"); 
+        setCanAdvance(false); 
+      } else {
+        setCanAdvance(true); 
+      }
+    }
+  }, [leaseStartDate, leaseEndDate])
 
   let bodyContent = (
     <div className="flex flex-col gap-8">
