@@ -317,6 +317,7 @@ const RentModal = () => {
       secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
       title="Post your space on EduRent"
       body={bodyContent}
+      canAdvance={canAdvance}
     />
   );
 };

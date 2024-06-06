@@ -346,6 +346,7 @@ const EditModal = () => {
       secondaryAction={step == STEPS.INFO ? undefined : onBack}
       title="Edit your edurent listing"
       body={bodyContent}
+      canAdvance={canAdvance}
     />
   );
 };

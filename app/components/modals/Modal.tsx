@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import Button from "../Button";
+import { VscError } from "react-icons/vsc";
 
 interface ModalProps {
   isOpen?: boolean;
@@ -15,6 +16,7 @@ interface ModalProps {
   disabled?: boolean;
   secondaryAction?: () => void;
   secondaryActionLabel?: string;
+  canAdvance?: boolean;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -28,6 +30,7 @@ const Modal: React.FC<ModalProps> = ({
   disabled,
   secondaryAction,
   secondaryActionLabel,
+  canAdvance,
 }) => {
   const [showModal, setShowModal] = useState(isOpen);
   useEffect(() => {
@@ -85,6 +88,12 @@ const Modal: React.FC<ModalProps> = ({
                 <div className="text-lg font-semibold text-center">{title}</div>
               </div>
               {/* Body */}
+              {!canAdvance && (
+                <div className="flex text-lg font-semibold mt-2 justify-center items-center text-[#862633]">
+                  <VscError size={18} color="#862633" />
+                  <h1>Errors Detected</h1>
+                </div>
+              )}
               <div className="relative p-6 flex-auto">{body}</div>
               {/* Footer */}
               <div className="flex flex-col gap-2 p-6">
