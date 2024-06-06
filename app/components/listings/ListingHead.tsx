@@ -40,40 +40,52 @@ const ListingHead: React.FC<IListingHeadProps> = ({
         title={title}
         subtitle={location}
       />
-      
       <div className="text-lg font-bold flex flex-row gap-2">
         <div>Status:</div>
         <div className={statusColor}>{status}</div>
       </div>
-
-      <div
-        className="
+      {imageSrc.length > 1 ? (
+        <div
+          className="
           w-full
           h-full
           overflow-hidden
           rounded-xl
           relative
         "
-      >
-        {/* <Image
-          alt="Image"
-          src={imageSrc}
-          fill
-          sizes="100%"
-          className="object-cover w-full"
-        /> */}
-        <Carousel>
-          {imageSrc.map((image) => {
-            return (
-              <Item img={image}/>
-            )
-          })}
-        </Carousel>
+        >
+          <Carousel>
+            {imageSrc.map((image, idx) => {
+              return <Item key={idx} img={image} />;
+            })}
+          </Carousel>
 
-        <div className="absolute top-5 right-5">
-          <HeartButton listingId={id} currentUser={currentUser} />
+          <div className="absolute top-5 right-5">
+            <HeartButton listingId={id} currentUser={currentUser} />
+          </div>
         </div>
-      </div>
+      ) : (
+        <div
+          className="
+          w-full
+          h-[60vh]
+          overflow-hidden
+          rounded-xl
+          relative
+        "
+        >
+          <Image
+            alt="Image"
+            src={imageSrc[0]}
+            fill
+            sizes="100%"
+            className="object-cover w-full"
+          />
+          <div className="absolute top-5 right-5">
+            <HeartButton listingId={id} currentUser={currentUser} />
+          </div>
+        </div>
+      )}
     </>
   );
 };

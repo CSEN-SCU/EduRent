@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import useRentModal from "@/app/hooks/useRentModal";
 import Modal from "./Modal";
@@ -33,8 +33,7 @@ const RentModal = () => {
 
   const [step, setStep] = useState(STEPS.CATEGORY);
   const [isLoading, setIsLoading] = useState(false);
-  const [canAdvance, setCanAdvance] = useState(true); 
-
+  const [canAdvance, setCanAdvance] = useState(true);
 
   const {
     register,
@@ -70,7 +69,7 @@ const RentModal = () => {
   const leaseStartDate = watch("leaseStartDate");
   const leaseEndDate = watch("leaseEndDate");
   const isActive = watch("isActive");
-  const [disabled, setDisabled] = useState(false); 
+  const [disabled, setDisabled] = useState(false);
 
   const Map = useMemo(
     () =>
@@ -98,13 +97,13 @@ const RentModal = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (!canAdvance) {
-      return; 
+      return;
     }
 
     if (step !== STEPS.PRICE) {
       return onNext();
     }
-   
+
     setIsLoading(true);
     axios
       .post("/api/listings", data)
@@ -140,14 +139,14 @@ const RentModal = () => {
 
   useEffect(() => {
     if (leaseStartDate && leaseEndDate) {
-      if ((leaseEndDate - leaseStartDate) <= 0) {
-        toast.error("Lease End Date must end after the Lease Start Date"); 
-        setCanAdvance(false); 
+      if (leaseEndDate - leaseStartDate <= 0) {
+        toast.error("Lease End Date must end after the Lease Start Date");
+        setCanAdvance(false);
       } else {
-        setCanAdvance(true); 
+        setCanAdvance(true);
       }
     }
-  }, [leaseStartDate, leaseEndDate])
+  }, [leaseStartDate, leaseEndDate]);
 
   let bodyContent = (
     <div className="flex flex-col gap-8">
@@ -155,9 +154,7 @@ const RentModal = () => {
         title="Which of the following best describes your place?"
         subtitle="Pick a category"
       />
-      <div
-        className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto"
-      >
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
         {categories.map((item) => (
           <div key={item.label} className="col-span-1">
             <CategoryInput
@@ -172,16 +169,16 @@ const RentModal = () => {
     </div>
   );
 
-  //to not allow a null location 
+  //to not allow a null location
   useEffect(() => {
-    if ((!locationValue || locationValue?.label === "") && step === STEPS.LOCATION) {
-      setDisabled(true); 
+    if (step === STEPS.LOCATION) {
+      if (!locationValue || locationValue?.label === "") {
+        setDisabled(true);
+      } else {
+        setDisabled(false);
+      }
     }
-    else {
-      setDisabled(false); 
-    }
-
-  }, [step, locationValue])
+  }, [step, locationValue]);
 
   if (step === STEPS.LOCATION) {
     bodyContent = (
@@ -231,17 +228,14 @@ const RentModal = () => {
     );
   }
 
-  //to not allow a null location 
+  //to not allow a null location
   useEffect(() => {
     if ((!imageSrc || imageSrc.length === 0) && step === STEPS.IMAGES) {
-      setDisabled(true); 
+      setDisabled(true);
+    } else {
+      setDisabled(false);
     }
-    else {
-      setDisabled(false); 
-    }
-
-  }, [step, imageSrc])
-
+  }, [step, imageSrc]);
 
   if (step === STEPS.IMAGES) {
     bodyContent = (
