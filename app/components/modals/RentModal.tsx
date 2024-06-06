@@ -204,7 +204,7 @@ const RentModal = () => {
       <div className="flex flex-col gap-8">
         <Heading
           title="Upload some photos of your place (max 30)"
-          subtitle="You can always add more later"
+          subtitle="You can always add more later (8 pictures you upload show in this preview, but all of them will be in your listing when posted!)"
         />
         <ImageUpload
           value={imageSrc}
