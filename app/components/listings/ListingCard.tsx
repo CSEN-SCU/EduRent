@@ -89,6 +89,9 @@ const ListingCard: React.FC<ListingCardProps> = ({
     return `${format(start, "PP")} - ${format(end, "PP")}`;
   }, [reservation]);
 
+  const status = data.isActive ? "ACTIVE" : "INACTIVE";
+  const statusColor = data.isActive ? "text-[#862633]" : "text-gray-500";
+
   return (
     <div
       onClick={() => router.push(`/listings/${data.id}`)}
@@ -142,7 +145,10 @@ const ListingCard: React.FC<ListingCardProps> = ({
         <div className="flex flex-row items-center gap-1">
           <div className="font-semibold">${price}</div>
           {!reservation && <div className="font-light"> per month</div>}
+          <div className={`ml-3 font-bold ${statusColor}`}>{status}</div>
+          
         </div>
+        
         {onEdit &&
           editLabel && ( // Render the edit button
             <Button small label={editLabel} onClick={handleEdit} />
