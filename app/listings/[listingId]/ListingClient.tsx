@@ -63,33 +63,6 @@ const ListingClient: React.FC<ListingClientProps> = ({
   const [totalPrice, setTotalPrice] = useState(listing.price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
 
-
-  // const onCreateReservation = useCallback(async () => {
-  //   if (!currentUser) {
-  //     return loginModal.onOpen();
-  //   }
-
-  //   setIsLoading(true);
-  //   axios
-  //     .post("/api/reservations", {
-  //       totalPrice,
-  //       startDate: dateRange.startDate,
-  //       endDate: dateRange.endDate,
-  //       listingId: listing?.id,
-  //     })
-  //     .then(() => {
-  //       toast.success("Reservation created successfully");
-  //       setDateRange(initialDateRange);
-  //       router.refresh();
-  //     })
-  //     .catch(() => {
-  //       toast.error("Something went wrong.");
-  //     })
-  //     .finally(() => {
-  //       setIsLoading(false);
-  //     });
-  // }, [totalPrice, dateRange, listing?.id, currentUser, loginModal]);
-
   useEffect(() => {
     if (dateRange.startDate && dateRange.endDate) {
       const dayCount = differenceInCalendarDays(
@@ -121,6 +94,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
           locationValue={listing.locationValue}
           id={listing.id}
           currentUser={currentUser}
+          isActive={listing.isActive}
 
         />
         <div className=""></div>
@@ -138,6 +112,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
           listingLatLong={listing.listingLatLong}
           distFromBenson={listing.distFromBenson}
           price={listing.price}
+          
         />
         <div className="flex justify-start">
         <ListingContact

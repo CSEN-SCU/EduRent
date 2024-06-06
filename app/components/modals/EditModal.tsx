@@ -18,6 +18,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { type } from "os";
 import { latLng } from "leaflet";
+import Switch from "react-switch";
 
 enum STEPS {
   INFO = 0,
@@ -57,6 +58,7 @@ const EditModal = () => {
       description: "",
       leaseStartDate: null,
       leaseEndDate: null,
+      isActive: true
     },
   });
 
@@ -77,6 +79,8 @@ const EditModal = () => {
   const imageSrc = watch("imageSrc");
   const leaseStartDate = watch("leaseStartDate");
   const leaseEndDate = watch("leaseEndDate");
+  const isActive = watch("isActive");
+
   //console.log("Location value:", locationValue);
   //console.log("listingLatLong: ", listingLatLong);
   // const Map = useMemo(
@@ -103,28 +107,7 @@ const EditModal = () => {
     setStep((value) => value + 1);
   };
 
-  // const onSubmit: SubmitHandler<FieldValues> = (data) => {
-  //   if (step !== STEPS.PRICE) {
-  //     return onNext();
-  //   }
-
-  //   setIsLoading(true);
-  //   axios
-  //     .put("/api/listings/update", data)
-  //     .then(() => {
-  //       toast.success("Listing Updated");
-  //       router.refresh();
-  //       reset();
-  //       setStep(STEPS.INFO);
-  //       editModal.onClose();
-  //     })
-  //     .catch(() => {
-  //       toast.error("Something went wrong.");
-  //     })
-  //     .finally(() => {
-  //       setIsLoading(false);
-  //     });
-  // };
+  
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const listingId = data.id; // Assuming the listing ID is part of the form data
     
@@ -263,7 +246,7 @@ const EditModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="How would you describe your place?"
+          title="Edit your description?"
           subtitle="Short and sweet works best!"
         />
         <hr />
@@ -319,12 +302,12 @@ const EditModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="Now, set your price"
-          subtitle="How much will you charge per month?"
+          title="Edit your price & activate/deactivate your listing"
+          subtitle="Activate to indicate you are currently looking for tenants for your upcoming lease term. Deactivate once you have found tenants!"
         />
         <Input
           id="price"
-          label="Price"
+          label="Price per month"
           formatPrice
           type="number"
           disabled={isLoading}
@@ -332,9 +315,22 @@ const EditModal = () => {
           errors={errors}
           required
         />
+        
+        <div className="flex items-center mt-4">
+          <span className="mr-2">Activate your listing</span>
+          <Switch
+            checked={isActive}
+            onChange={(checked) => setCustomValue("isActive", checked)}
+            disabled={isLoading}
+            offColor="#888"
+            onColor="#862633"
+            className="ml-3"
+          />
+        </div>
       </div>
     );
   }
+
 
   return (
     <Modal

@@ -16,6 +16,7 @@ interface IListingHeadProps {
   imageSrc: string[];
   id: string;
   currentUser?: SafeUser | null;
+  isActive: Boolean;
 }
 
 const ListingHead: React.FC<IListingHeadProps> = ({
@@ -24,14 +25,25 @@ const ListingHead: React.FC<IListingHeadProps> = ({
   imageSrc,
   id,
   currentUser,
+  isActive
 }) => {
   //const { getByValue } = useCountries();
 
   const location = locationValue;
+  const status = isActive ? "ACTIVE" : "INACTIVE";
+  const statusColor = isActive ? "text-[#862633]" : "text-gray-500";
+
 
   return (
     <>
-      <Heading title={title} subtitle={location} />
+      <Heading
+        title={title}
+        subtitle={location}
+      />
+      <div className="text-lg font-bold flex flex-row gap-2">
+        <div>Status:</div>
+        <div className={statusColor}>{status}</div>
+      </div>
       {imageSrc.length > 1 ? (
         <div
           className="

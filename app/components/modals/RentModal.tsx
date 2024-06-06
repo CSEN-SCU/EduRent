@@ -16,6 +16,7 @@ import DatePick from "../inputs/DatePick";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Switch from "react-switch";
 
 enum STEPS {
   CATEGORY = 0,
@@ -55,6 +56,7 @@ const RentModal = () => {
       leaseStartDate: null,
       leaseEndDate: null,
       distValue: 0.0,
+      isActive: true
     },
   });
 
@@ -66,6 +68,7 @@ const RentModal = () => {
   const imageSrc: string[] = watch("imageSrc");
   const leaseStartDate = watch("leaseStartDate");
   const leaseEndDate = watch("leaseEndDate");
+  const isActive = watch("isActive");
   const [disabled, setDisabled] = useState(false);
 
   const Map = useMemo(
@@ -309,12 +312,12 @@ const RentModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="Now, set your price"
-          subtitle="How much will you charge per month?"
+          title="Set your price & activate your listing!"
+          subtitle="Activate to indicate you are currently looking for tenants for your upcoming lease term. Deactivate later once you have found tenants!"
         />
         <Input
           id="price"
-          label="Price"
+          label="Price per month"
           formatPrice
           type="number"
           disabled={isLoading}
@@ -322,9 +325,22 @@ const RentModal = () => {
           errors={errors}
           required
         />
+        
+        <div className="flex items-center mt-4">
+          <span className="mr-2">Activate your listing</span>
+          <Switch
+            checked={isActive}
+            onChange={(checked) => setCustomValue("isActive", checked)}
+            disabled={isLoading}
+            offColor="#888"
+            onColor="#862633"
+            className="ml-3"
+          />
+        </div>
       </div>
     );
   }
+
 
   return (
     <Modal
