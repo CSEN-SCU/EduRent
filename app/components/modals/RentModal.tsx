@@ -2,7 +2,7 @@
 
 import useRentModal from "@/app/hooks/useRentModal";
 import Modal from "./Modal";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Heading from "../Heading";
 import { categories } from "../navbar/Categories";
 import CategoryInput from "../inputs/CategoryInput";
@@ -32,6 +32,8 @@ const RentModal = () => {
 
   const [step, setStep] = useState(STEPS.CATEGORY);
   const [isLoading, setIsLoading] = useState(false);
+  const [canAdvance, setCanAdvance] = useState(true); 
+
 
   const {
     register,
@@ -58,20 +60,21 @@ const RentModal = () => {
   });
 
   const category = watch("category");
-  const location = watch("location");
+  const locationValue = watch("location");
   const guestCount = watch("guestCount");
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
-  const imageSrc = watch("imageSrc");
+  const imageSrc: string[] = watch("imageSrc");
   const leaseStartDate = watch("leaseStartDate");
   const leaseEndDate = watch("leaseEndDate");
+  const [disabled, setDisabled] = useState(false); 
 
   const Map = useMemo(
     () =>
       dynamic(() => import("../Map"), {
         ssr: false,
       }),
-    [location]
+    [locationValue]
   );
 
   const setCustomValue = (id: string, value: any) => {
@@ -91,10 +94,14 @@ const RentModal = () => {
   };
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    if (!canAdvance) {
+      return; 
+    }
+
     if (step !== STEPS.PRICE) {
       return onNext();
     }
-
+   
     setIsLoading(true);
     axios
       .post("/api/listings", data)
@@ -128,6 +135,17 @@ const RentModal = () => {
     return "Back";
   }, [step]);
 
+  useEffect(() => {
+    if (leaseStartDate && leaseEndDate) {
+      if ((leaseEndDate - leaseStartDate) <= 0) {
+        toast.error("Lease End Date must end after the Lease Start Date"); 
+        setCanAdvance(false); 
+      } else {
+        setCanAdvance(true); 
+      }
+    }
+  }, [leaseStartDate, leaseEndDate])
+
   let bodyContent = (
     <div className="flex flex-col gap-8">
       <Heading
@@ -151,6 +169,17 @@ const RentModal = () => {
     </div>
   );
 
+  //to not allow a null location 
+  useEffect(() => {
+    if ((!locationValue || locationValue?.label === "") && step === STEPS.LOCATION) {
+      setDisabled(true); 
+    }
+    else {
+      setDisabled(false); 
+    }
+
+  }, [step, locationValue])
+
   if (step === STEPS.LOCATION) {
     bodyContent = (
       <div className="flex flex-col gap-8">
@@ -159,10 +188,10 @@ const RentModal = () => {
           subtitle="Help students see where they'll stay!"
         />
         <CountrySelect
-          locationValue={location}
+          locationValue={locationValue}
           onChange={(value) => setCustomValue("location", value)}
         />
-        <Map center={location?.latlng} />
+        <Map center={locationValue?.latlng} />
       </div>
     );
   }
@@ -198,6 +227,18 @@ const RentModal = () => {
       </div>
     );
   }
+
+  //to not allow a null location 
+  useEffect(() => {
+    if ((!imageSrc || imageSrc.length === 0) && step === STEPS.IMAGES) {
+      setDisabled(true); 
+    }
+    else {
+      setDisabled(false); 
+    }
+
+  }, [step, imageSrc])
+
 
   if (step === STEPS.IMAGES) {
     bodyContent = (
@@ -301,6 +342,8 @@ const RentModal = () => {
       secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
       title="Post your space on EduRent"
       body={bodyContent}
+      canAdvance={canAdvance}
+      disabled={disabled}
     />
   );
 };
