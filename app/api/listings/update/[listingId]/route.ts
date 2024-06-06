@@ -37,7 +37,8 @@ export async function PUT(
       price,
       leaseStartDate,
       leaseEndDate,
-      distFromBenson
+      distFromBenson,
+      isActive
     } = body;
 
     if (!locationValue || !listingLatLong || !distFromBenson) {
@@ -62,7 +63,8 @@ export async function PUT(
         leaseStartDate,
         leaseEndDate,
         listingLatLong: listingLatLong,
-        distFromBenson: distFromBenson
+        distFromBenson: distFromBenson,
+        isActive
       },
     });
 

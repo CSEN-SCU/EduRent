@@ -43,6 +43,7 @@
     "react-loader-spinner": "^6.1.6",
     "react-select": "^5.8.0",
     "react-swipeable": "^7.0.1",
+    "react-switch": "^7.0.0",
     "styled-components": "^6.1.11",
     "use-google-maps-script": "^0.1.2",
     "use-places-autocomplete": "^4.0.1",
