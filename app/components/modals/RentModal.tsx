@@ -34,6 +34,7 @@ const RentModal = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [canAdvance, setCanAdvance] = useState(true); 
 
+
   const {
     register,
     handleSubmit,
@@ -63,9 +64,10 @@ const RentModal = () => {
   const guestCount = watch("guestCount");
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
-  const imageSrc = watch("imageSrc");
+  const imageSrc: string[] = watch("imageSrc");
   const leaseStartDate = watch("leaseStartDate");
   const leaseEndDate = watch("leaseEndDate");
+  const [disabled, setDisabled] = useState(false); 
 
   const Map = useMemo(
     () =>
@@ -167,6 +169,19 @@ const RentModal = () => {
     </div>
   );
 
+  //to not allow a null location 
+  useEffect(() => {
+    console.log(`location ${location}`); 
+    console.log(`step ${step}`)
+    if (!location && step === STEPS.LOCATION) {
+      setDisabled(true); 
+    }
+    else {
+      setDisabled(false); 
+    }
+
+  }, [step, location])
+
   if (step === STEPS.LOCATION) {
     bodyContent = (
       <div className="flex flex-col gap-8">
@@ -214,6 +229,18 @@ const RentModal = () => {
       </div>
     );
   }
+
+  //to not allow a null location 
+  useEffect(() => {
+    if ((!imageSrc || imageSrc.length === 0) && step === STEPS.IMAGES) {
+      setDisabled(true); 
+    }
+    else {
+      setDisabled(false); 
+    }
+
+  }, [step, imageSrc])
+
 
   if (step === STEPS.IMAGES) {
     bodyContent = (
@@ -318,6 +345,7 @@ const RentModal = () => {
       title="Post your space on EduRent"
       body={bodyContent}
       canAdvance={canAdvance}
+      disabled={disabled}
     />
   );
 };
