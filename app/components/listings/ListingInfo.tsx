@@ -89,6 +89,16 @@ let locationRating: number;
         <div>{bathroomCount} bathrooms</div>
       </div>
     </div>
+    
+
+    <hr />
+    {category && (
+      <ListingCategory
+        icon={category.icon}
+        label={category.label}
+        description={category.description}
+      />
+    )}
     <hr />
     <div className="flex flex-row justify-between items-center">
       <div className="text-lg font-semibold flex flex-row gap-2">
@@ -102,16 +112,6 @@ let locationRating: number;
         <div className="font-light text-neutral-500">{start} — {end}</div>
       </div>
     </div>
-    
-
-    <hr />
-    {category && (
-      <ListingCategory
-        icon={category.icon}
-        label={category.label}
-        description={category.description}
-      />
-    )}
     <hr />
 
     <div className="text-lg font-light text-neutral-500">{description}</div>
