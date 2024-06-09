@@ -23,11 +23,11 @@ export const categories = [
         icon: FaPeopleRoof,
         description: "Don't need a long-term lease, look no further!"
     },
-    // {
-    //     label: 'University Housing',
-    //     icon: IoSchool,
-    //     description: 'Utilities and rules included free of charge!'
-    // },
+    {
+        label: 'University Housing',
+        icon: IoSchool,
+        description: 'Utilities and rules included free of charge!'
+    },
 ]
 
 const Categories = () => {
