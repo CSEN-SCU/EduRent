@@ -9,6 +9,7 @@ import queryString from "query-string";
 import { formatISO } from "date-fns";
 import Heading from "../Heading";
 import Counter from "../inputs/Counter";
+import Button from "../Button";
 
 enum STEPS {
   INFO = 0,
@@ -31,6 +32,34 @@ const SearchModal = () => {
   const onNext = useCallback(() => {
     setStep((value) => value + 1);
   }, []);
+
+  const onReset = () => {
+    let currentQuery = {};
+    if (params) {
+      currentQuery = queryString.parse(params.toString());
+    }
+
+    const updatedQuery: any = {
+      ...currentQuery,
+      guestCount: null,
+      roomCount: null,
+      bathroomCount: null,
+    };
+
+    const url = queryString.stringifyUrl(
+      {
+        url: "/",
+        query: updatedQuery,
+      },
+      { skipNull: true }
+    );
+
+    router.push(url);
+    setGuestCount(1);
+    setRoomCount(1);
+    setBathroomCount(1);
+    searchModal.onClose();
+  };
 
   const onSubmit = useCallback(async () => {
     if (step != STEPS.INFO) {
@@ -114,6 +143,7 @@ const SearchModal = () => {
           value={bathroomCount}
           onChange={(value) => setBathroomCount(value)}
         />
+        <Button outline label="Reset all filters" onClick={onReset} />
       </div>
     );
   }
