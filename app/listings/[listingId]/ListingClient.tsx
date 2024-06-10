@@ -35,14 +35,13 @@ interface ListingClientProps {
     imageSrc: string[];
  };
   currentUser?: SafeUser | null;
-  account: Account;
 }
 
 const ListingClient: React.FC<ListingClientProps> = ({
   listing,
   reservations = [],
   currentUser,
-  account,
+  
 }) => {
   const loginModal = useLoginModal();
   const router = useRouter();
