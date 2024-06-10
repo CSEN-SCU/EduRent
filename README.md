@@ -9,7 +9,7 @@ EduRent is not just another generic housing platform; it's a tailored solution d
 
 **Why EduRent?**
 
-- **SCU-specific**: Unlike generic platforms like Zillow, EduRent focuses solely on the needs of Santa Clara University students. Our platform is designed with SCU-specific traits in mind, allowing you to easily filter properties based on factors such as proximity to campus departments, availability of Greek life, and nearby sports facilities.
+- **SCU-specific**: Unlike generic platforms like Zillow, EduRent focuses solely on the needs of Santa Clara University students. Our platform is designed with SCU-specific traits in mind, allowing you to easily filter properties based on factors such as proximity to campus and amenities.
 
 - **Student-friendly features**: We understand the unique challenges students face when searching for off-campus housing. That's why EduRent enables students to rate properties and landlords, empowering you to make informed decisions based on real experiences. With our platform, property owners can build positive reputations within the SCU community, ensuring a high-quality living experience for all students.
 
@@ -65,11 +65,8 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+## Deployment
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+https://edu-rent.vercel.app/
 
 **Nick, Anusha, Lucas, Kavya, Wesley, Matt, Lauren**
