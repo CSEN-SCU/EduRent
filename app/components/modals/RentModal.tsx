@@ -211,8 +211,8 @@ const RentModal = () => {
         />
         <hr />
         <Counter
-          title="Rooms"
-          subtitle="How many rooms do you have?"
+          title="Bedrooms"
+          subtitle="How many bedrooms do you have?"
           value={roomCount}
           onChange={(value) => setCustomValue("roomCount", value)}
         />
