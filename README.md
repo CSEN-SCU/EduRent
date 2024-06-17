@@ -53,6 +53,7 @@ NEXTAUTH_SECRET = "NEXTAUTH_SECRET"
 
 GOOGLE_CLIENT_ID="<your google client id>" //for google oauth login. made on google developer console
 GOOGLE_CLIENT_SECRET="<your google client secret>"
+GOOGLE_MAPS_EMBED_KEY="<your google maps key>"
 
 NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="<your cloudinary name>"
 
